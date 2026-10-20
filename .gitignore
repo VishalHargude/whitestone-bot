@@ -1,0 +1,19 @@
+# Credentials & tokens (will be stored securely in GitHub Secrets)
+client_secret.json
+*.pickle
+token.pickle
+youtube_direct_token.pickle
+drive_token.pickle
+
+# Heavy media & temporary files
+temp/
+output/
+*.mp4
+*.mkv
+*.avi
+__pycache__/
+*.pyc
+
+# System files
+.DS_Store
+Thumbs.db
