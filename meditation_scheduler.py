@@ -23,10 +23,11 @@ from config import BASE_DIR
 from create_long_meditation_video import build_meditation_video
 from direct_youtube_upload import upload_latest_video
 
-# Optimal global upload times for meditation / sleep music (IST):
-# - 06:30 AM IST = Morning meditation in Asia & evening sleep in US/Canada
-# - 09:30 PM IST = Night bedtime sleep meditation in Asia & UK afternoon relax
-MEDITATION_SCHEDULE_TIMES = ["06:30", "21:30"]
+# Optimal 3 global upload times for meditation / sleep music (IST):
+# - 06:30 AM IST = Morning Dhyana in Asia & Evening Sleep in US/Canada
+# - 02:30 PM IST = Afternoon Stress Relief & European Focus
+# - 09:30 PM IST = Asia Bedtime & Global Deep Sleep Relaxation
+MEDITATION_SCHEDULE_TIMES = ["06:30", "14:30", "21:30"]
 
 def job_publish_meditation_video(duration_mins: int = 30):
     print("\n" + "=" * 70)
