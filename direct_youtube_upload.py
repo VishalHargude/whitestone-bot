@@ -75,7 +75,7 @@ def upload_direct(video_path: Path, title: str, description: str, tags: list, ca
         "status": {
             "privacyStatus": "public",
             "selfDeclaredMadeForKids": False,
-            "containsSyntheticMedia": True
+            "containsSyntheticMedia": False
         }
     }
 
