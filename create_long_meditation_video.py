@@ -253,17 +253,10 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     for idx, s_img in enumerate(scene_paths):
         clip_path = TEMP_DIR / f"base_clip_{idx}.mp4"
         base_clip_paths.append(clip_path)
-        print(f"\n  [Rendering Base Scene {idx+1}/{num_scenes}] {s_img.name} (60s ultra-gentle micro-drift + logo)...")
+        print(f"\n  [Rendering Base Scene {idx+1}/{num_scenes}] {s_img.name} (1080p Crystal Clear Rock-Solid + Logo)...")
 
-        # Subtle, imperceptible drift (barely 30-40 pixels over 60s = 0.5 px/s - never dizzying)
-        if idx % 3 == 0:
-            vf_drift = "scale=2016:1134:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/60):(in_h-out_h)*(t/60)"
-        elif idx % 3 == 1:
-            vf_drift = "scale=2016:1134:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(1-(t/60)):(in_h-out_h)*(t/60)"
-        else:
-            vf_drift = "scale=2016:1134:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/60):(in_h-out_h)*(1-(t/60))"
-
-        filter_complex = f"[0:v]{vf_drift},format=yuv420p[v];[v][1:v]overlay=W-w-50:H-h-50[outv]"
+        # 100% Rock-Solid Stable Full HD (ZERO jitter / ZERO pixel-snapping) with Logo Watermark
+        filter_complex = "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,format=yuv420p[v];[v][1:v]overlay=W-w-50:H-h-50[outv]"
 
         cmd_clip = [
             ffmpeg_exe, "-y",
@@ -272,7 +265,7 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
             "-filter_complex", filter_complex,
             "-map", "[outv]",
             "-t", str(clip_base_dur),
-            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "22",
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18",
             "-pix_fmt", "yuv420p",
             "-an",
             str(clip_path)
@@ -342,23 +335,6 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     ]
     subprocess.run(cmd_final, capture_output=True, check=True)
 
-    # Dynamic SEO Metadata Generation with 2-Minute Interactive Chapters
-    formatted_chapters = [
-        f"00:00 - Scene 1: {theme['chapters'][0]}",
-        f"02:00 - Scene 2: {theme['chapters'][1]}",
-        f"04:00 - Scene 3: {theme['chapters'][2]}",
-        "06:00 - Mindful Breathing & Tension Release",
-        "15:00 - Complete Muscle Relaxation & Presence",
-        "30:00 - Inner Stillness, Anti-Anxiety & Peace",
-        "45:00 - Restorative Delta Waves & Inner Healing"
-    ]
-    if hours >= 2:
-        formatted_chapters.extend([
-            "01:00:00 - Entering Deep Sleep & Subconscious Healing",
-            "01:30:00 - Pure Cosmic Rest & Soul Rejuvenation"
-        ])
-
-    chapters_str = "\n".join(formatted_chapters)
     title = theme["title_template"].format(dur_label=dur_label)
 
     # Systematic Tag Management (High SEO, User Branding & YouTube 500-char Compliance)
@@ -403,8 +379,6 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
             "• Daily Yoga, Pranayama & Dhyana Practice\n"
             "• Aura Cleansing & Positive Vibration\n"
             "• Study, Focus, Zen Mindfulness & Work Concentration\n\n"
-            "⏱️ TIMESTAMPS / CHAPTERS:\n"
-            f"{chapters_str}\n\n"
             "🎧 Headphones recommended for maximum binaural relaxation.\n"
             "🔔 Subscribe to White Stone Music for daily peaceful meditation videos!\n"
             "👍 If this music brought you peace, please like, share, and subscribe.\n\n"
