@@ -344,6 +344,34 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     chapters_str = "\n".join(formatted_chapters)
     title = theme["title_template"].format(dur_label=dur_label)
 
+    # Systematic Tag Management (High SEO, User Branding & YouTube 500-char Compliance)
+    base_tags = [
+        "vishal hargude",
+        "white stone music",
+        "meditation music",
+        "relaxing sleep music",
+        "deep healing music",
+        "stress relief meditation",
+        "anxiety relief",
+        "432hz frequency",
+        "528hz miracle tone",
+        "binaural beats sleep",
+        "calm mind dhyana",
+        f"{dur_label.lower()} meditation",
+        f"{dur_label.lower()} sleep music"
+    ]
+    raw_tags = theme.get("tags", []) + base_tags
+    unique_tags = []
+    seen = set()
+    total_len = 0
+    for t in raw_tags:
+        t_clean = t.strip()
+        if t_clean.lower() not in seen:
+            seen.add(t_clean.lower())
+            if total_len + len(t_clean) + 1 <= 480:
+                unique_tags.append(t_clean)
+                total_len += len(t_clean) + 1
+
     meta_path = final_mp4.with_suffix(".json")
     meta = {
         "title": title,
@@ -363,12 +391,14 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
             "🎧 Headphones recommended for maximum binaural relaxation.\n"
             "🔔 Subscribe to White Stone Music for daily peaceful meditation videos!\n"
             "👍 If this music brought you peace, please like, share, and subscribe.\n\n"
-            "#meditationmusic #432hz #528hz #whitestonemusic #deepsleep #stressrelief #zen #healingmusic #yoga #mindfulness"
+            "🌿 CREATOR & CHANNEL CREDITS:\n"
+            "• Produced & Curated by: Vishal Hargude\n"
+            "• Channel: White Stone Music\n"
+            "• Dedicated to mental wellness, inner peace, and sound healing worldwide.\n"
+            "• © White Stone Music & Vishal Hargude. All Rights Reserved.\n\n"
+            "#meditationmusic #432hz #528hz #whitestonemusic #vishalhargude #deepsleep #stressrelief #zen #healingmusic #yoga #mindfulness"
         ),
-        "tags": theme["tags"] + [
-            "meditation music", "relaxing music", "peaceful sleep",
-            f"{dur_label.lower()} meditation", f"{dur_label.lower()} sleep music"
-        ],
+        "tags": unique_tags,
         "video_path": str(final_mp4),
         "duration_minutes": mins,
         "is_short": False,

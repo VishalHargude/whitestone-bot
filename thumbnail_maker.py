@@ -96,6 +96,31 @@ THEME_THUMB_STYLES = {
     }
 }
 
+def _load_font(candidates: list, size: int):
+    """Safely loads a TTF font across Windows and Linux (GitHub Actions)."""
+    search_paths = []
+    for c in candidates:
+        search_paths.extend([
+            c,
+            f"C:/Windows/Fonts/{c}",
+            f"/usr/share/fonts/truetype/dejavu/{c}",
+            f"/usr/share/fonts/truetype/freefont/{c}",
+            f"/usr/share/fonts/truetype/liberation/{c}",
+        ])
+    # Linux standard fallbacks
+    search_paths.extend([
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    ])
+    for p in search_paths:
+        try:
+            return ImageFont.truetype(p, size)
+        except Exception:
+            continue
+    return ImageFont.load_default()
+
 def generate_custom_thumbnail(scene_img_path: Path, theme_id: str, dur_label: str, output_path: Path) -> Path:
     """Renders a 1280x720 professional YouTube thumbnail with distinct visual branding."""
     style = THEME_THUMB_STYLES.get(theme_id, THEME_THUMB_STYLES["himalayan_sunrise"])
@@ -106,22 +131,19 @@ def generate_custom_thumbnail(scene_img_path: Path, theme_id: str, dur_label: st
     # Left-to-right subtle dark gradient overlay for crystal-clear text readability
     gradient = Image.new('RGBA', (1280, 720), (0, 0, 0, 0))
     g_draw = ImageDraw.Draw(gradient)
-    for x in range(650):
-        alpha = int(195 * (1.0 - (x / 650.0)))
+    for x in range(680):
+        alpha = int(210 * (1.0 - (x / 680.0)))
         g_draw.line([(x, 0), (x, 720)], fill=(0, 0, 0, alpha))
 
     img = Image.alpha_composite(img.convert('RGBA'), gradient).convert('RGB')
     draw = ImageDraw.Draw(img)
 
-    # Fonts
-    try:
-        font_badge = ImageFont.truetype('arialbd.ttf', 24)
-        font_dur = ImageFont.truetype('arialbd.ttf', 22)
-        font_head = ImageFont.truetype('impact.ttf', 72)
-        font_sub = ImageFont.truetype('arialbd.ttf', 44)
-        font_pill = ImageFont.truetype('arialbd.ttf', 28)
-    except Exception:
-        font_badge = font_dur = font_head = font_sub = font_pill = ImageFont.load_default()
+    # Cross-platform fonts (Windows + Linux)
+    font_badge = _load_font(['arialbd.ttf', 'DejaVuSans-Bold.ttf'], 24)
+    font_dur = _load_font(['arialbd.ttf', 'DejaVuSans-Bold.ttf'], 22)
+    font_head = _load_font(['impact.ttf', 'arialbd.ttf', 'DejaVuSans-Bold.ttf'], 72)
+    font_sub = _load_font(['arialbd.ttf', 'DejaVuSans-Bold.ttf'], 42)
+    font_pill = _load_font(['arialbd.ttf', 'DejaVuSans-Bold.ttf'], 28)
 
     # 1. Frequency Badge
     b_color = style["badge_color"]
@@ -129,15 +151,15 @@ def generate_custom_thumbnail(scene_img_path: Path, theme_id: str, dur_label: st
     draw.text((78, 65), style["freq"], font=font_badge, fill=(10, 10, 10))
 
     # 2. Duration Badge (e.g. '1 HOUR' / '2 HOURS')
-    draw.rounded_rectangle([(225, 55), (370, 105)], radius=12, fill=(0, 0, 0, 180), outline=(255, 255, 255, 120), width=1)
+    draw.rounded_rectangle([(225, 55), (370, 105)], radius=12, fill=(0, 0, 0, 190), outline=(255, 255, 255, 140), width=1)
     draw.text((245, 66), dur_label.upper(), font=font_dur, fill=(255, 255, 255))
 
-    # 3. Bold High-Impact Headlines
-    draw.text((60, 135), style["headline"], font=font_head, fill=(255, 255, 255))
-    draw.text((60, 225), style["subline"], font=font_sub, fill=(225, 230, 245))
+    # 3. Bold High-Impact Headlines with Stroke for Maximum Pop
+    draw.text((60, 135), style["headline"], font=font_head, fill=(255, 255, 255), stroke_width=2, stroke_fill=(0, 0, 0))
+    draw.text((60, 225), style["subline"], font=font_sub, fill=(230, 235, 245), stroke_width=2, stroke_fill=(0, 0, 0))
 
     # 4. Benefit Pill Tag
-    draw.rounded_rectangle([(60, 300), (460, 355)], radius=12, fill=(0, 0, 0, 180), outline=b_color, width=2)
+    draw.rounded_rectangle([(60, 300), (470, 355)], radius=12, fill=(0, 0, 0, 200), outline=b_color, width=2)
     draw.text((80, 310), style["pill_text"], font=font_pill, fill=style["pill_color"])
 
     # 5. White Stone Music logo watermark in top-right
