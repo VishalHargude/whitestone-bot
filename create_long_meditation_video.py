@@ -234,70 +234,79 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
             raise FileNotFoundError(f"Missing scene asset: {s}")
 
     num_scenes = len(scene_paths)
-    scene_dur = 120  # 2 Minutes per photo
-    trans_dur = 3    # 3-Second smooth cinematic crossfade dissolve
+    time_per_scene = duration_seconds / num_scenes
+    clip_base_dur = 60
+    loops_per_scene = max(1, int(round(time_per_scene / clip_base_dur)))
 
-    print(f"\n[Visuals] {num_scenes} Unique 8K Scenes for [{theme['name']}]:")
+    print(f"\n[Visuals] {num_scenes} Strictly Theme-Pure 8K Scenes for [{theme['name']}]:")
     for idx, s in enumerate(scene_paths):
         print(f"  {idx+1}. {s.name}")
     print(f"  • Logo: {LOGO_PATH.name} (Bottom-Right corner)")
-    print(f"  • Scene Motion: Left-to-Right slow cinematic pan (120s per photo)")
-    print(f"  • Scene Transitions: {trans_dur}s smooth dissolve crossfade")
+    print(f"  • Non-Repeating: ZERO photo repetition! Each scene appears exactly once.")
+    print(f"  • Motion: Ultra-gentle micro-drift (0.3-0.5 px/s, 'नकळत हळुवार सरकणारे')")
+    print(f"  • Each scene runs ~{time_per_scene/60:.1f} mins ({loops_per_scene} loops of 60s)")
 
-    # Step A: Render Master 3-Scene Visual Sequence with 2-minute diagonal pan and cross-dissolve
-    master_seq_path = TEMP_DIR / "master_3scene_sequence.mp4"
-    print(f"\n[Visuals] Rendering Master 3-Scene Dynamic Sequence ({num_scenes * scene_dur}s with {trans_dur}s cross-dissolves)...")
+    scene_long_paths = []
+    base_clip_paths = []
+    fps = 24
 
-    d = scene_dur
-    t_fade = trans_dur
-    offset1 = d - t_fade
-    offset2 = offset1 + d - t_fade
+    for idx, s_img in enumerate(scene_paths):
+        clip_path = TEMP_DIR / f"base_clip_{idx}.mp4"
+        base_clip_paths.append(clip_path)
+        print(f"\n  [Rendering Base Scene {idx+1}/{num_scenes}] {s_img.name} (60s ultra-gentle micro-drift + logo)...")
 
-    # Diagonal Motion 1: Bottom-Left corner to Top-Right corner
-    vf_pan0 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/{d}):(in_h-out_h)*(1-(t/{d})),format=yuv420p"
-    # Diagonal Motion 2: Bottom-Right corner to Top-Left corner
-    vf_pan1 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(1-(t/{d})):(in_h-out_h)*(1-(t/{d})),format=yuv420p"
-    # Diagonal Motion 3: Top-Left corner to Bottom-Right corner
-    vf_pan2 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/{d}):(in_h-out_h)*(t/{d}),format=yuv420p"
+        # Subtle, imperceptible drift (barely 30-40 pixels over 60s = 0.5 px/s - never dizzying)
+        if idx % 3 == 0:
+            vf_drift = "scale=2016:1134:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/60):(in_h-out_h)*(t/60)"
+        elif idx % 3 == 1:
+            vf_drift = "scale=2016:1134:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(1-(t/60)):(in_h-out_h)*(t/60)"
+        else:
+            vf_drift = "scale=2016:1134:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/60):(in_h-out_h)*(1-(t/60))"
 
-    filter_complex = (
-        f"[0:v]{vf_pan0}[v0];"
-        f"[1:v]{vf_pan1}[v1];"
-        f"[2:v]{vf_pan2}[v2];"
-        f"[v0][v1]xfade=transition=fade:duration={t_fade}:offset={offset1}[x1];"
-        f"[x1][v2]xfade=transition=fade:duration={t_fade}:offset={offset2}[merged];"
-        f"[merged][3:v]overlay=W-w-50:H-h-50[outv]"
-    )
+        filter_complex = f"[0:v]{vf_drift},format=yuv420p[v];[v][1:v]overlay=W-w-50:H-h-50[outv]"
 
-    cmd_master = [
-        ffmpeg_exe, "-y",
-        "-loop", "1", "-t", str(d), "-i", str(scene_paths[0]),
-        "-loop", "1", "-t", str(d), "-i", str(scene_paths[1]),
-        "-loop", "1", "-t", str(d), "-i", str(scene_paths[2]),
-        "-i", str(LOGO_PATH),
-        "-filter_complex", filter_complex,
-        "-map", "[outv]",
-        "-c:v", "libx264", "-preset", "ultrafast", "-crf", "24", "-r", "24",
-        "-pix_fmt", "yuv420p",
-        "-an",
-        str(master_seq_path)
-    ]
-    subprocess.run(cmd_master, capture_output=True, check=True)
+        cmd_clip = [
+            ffmpeg_exe, "-y",
+            "-loop", "1", "-i", str(s_img),
+            "-i", str(LOGO_PATH),
+            "-filter_complex", filter_complex,
+            "-map", "[outv]",
+            "-t", str(clip_base_dur),
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "22",
+            "-pix_fmt", "yuv420p",
+            "-an",
+            str(clip_path)
+        ]
+        subprocess.run(cmd_clip, capture_output=True, check=True)
 
-    master_block_dur = offset2 + d  # e.g. 117 + 117 + 120 = 354s
-    num_loops = max(1, int(round(duration_seconds / master_block_dur)) + 2)
+        scene_long_path = TEMP_DIR / f"scene_long_{idx}.mp4"
+        scene_long_paths.append(scene_long_path)
 
-    print(f"\n[Visuals] Looping master 3-scene sequence ({num_loops} loops) with stream copy to {duration_seconds}s...")
+        print(f"  [Looping Scene {idx+1}] -> {loops_per_scene * clip_base_dur}s with stream copy...")
+        cmd_loop = [
+            ffmpeg_exe, "-y",
+            "-stream_loop", str(loops_per_scene - 1),
+            "-i", str(clip_path),
+            "-c", "copy",
+            str(scene_long_path)
+        ]
+        subprocess.run(cmd_loop, capture_output=True, check=True)
+
+    print("\n[Visuals] Concatenating unique non-repeating scenes into unified timeline...")
+    concat_list = TEMP_DIR / "concat_scenes.txt"
+    with open(concat_list, "w", encoding="utf-8") as f:
+        for p in scene_long_paths:
+            f.write(f"file '{p.name}'\n")
+
     merged_video_visual = TEMP_DIR / "merged_visuals.mp4"
-    cmd_loop = [
+    cmd_concat = [
         ffmpeg_exe, "-y",
-        "-stream_loop", str(num_loops),
-        "-i", str(master_seq_path),
-        "-t", str(duration_seconds),
+        "-f", "concat", "-safe", "0",
+        "-i", "concat_scenes.txt",
         "-c", "copy",
         str(merged_video_visual)
     ]
-    subprocess.run(cmd_loop, capture_output=True, check=True)
+    subprocess.run(cmd_concat, cwd=TEMP_DIR, capture_output=True, check=True)
 
     print(f"\n[Audio] Synthesizing seamless {dur_label} healing soundscape...")
     chosen_track = MUSIC_MEDITATION / theme["music_track"]
@@ -433,7 +442,7 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
         print(f"[Thumbnail] Notice: {e}")
 
     # Clean intermediate temporary files
-    for tmp_file in [master_seq_path, merged_video_visual, audio_loop_path]:
+    for tmp_file in (scene_long_paths + base_clip_paths + [merged_video_visual, audio_loop_path]):
         try:
             tmp_file.unlink(missing_ok=True)
         except Exception:
