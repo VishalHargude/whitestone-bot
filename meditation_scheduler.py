@@ -21,14 +21,16 @@ from direct_youtube_upload import upload_latest_video
 
 THEME_TRACKER_FILE = BASE_DIR / "meditation_theme_tracker.json"
 
-# Optimal 3 global upload times for meditation / sleep music (IST):
-# - 06:30 AM IST = 1-Hour Morning Dhyana (Asia Morning & US Evening)
-# - 02:30 PM IST = 1-Hour Afternoon Stress Relief & Zen Focus
-# - 09:30 PM IST = 2-Hour Deep Sleep Meditation (Asia Bedtime & Deep Insomnia Relief)
+# Optimal 4 global upload times for meditation / sleep music (IST):
+# - 06:15 AM IST = 1-Hour Morning Dhyana (Asia Morning & US Night/Sleep)
+# - 11:45 AM IST = 1-Hour Midday Stress Relief & Zen Focus (EU Morning & Asia Midday)
+# - 04:45 PM IST = 1-Hour Sunset Peace & Mindfulness (EU Afternoon & US Morning)
+# - 09:45 PM IST = 2-Hour Deep Sleep Meditation (Asia Bedtime & US Midday)
 MEDITATION_SCHEDULES = [
-    {"time": "06:30", "duration_mins": 60, "name": "1-Hour Morning Dhyana"},
-    {"time": "14:30", "duration_mins": 60, "name": "1-Hour Afternoon Zen"},
-    {"time": "21:30", "duration_mins": 120, "name": "2-Hour Deep Sleep Meditation"}
+    {"time": "06:15", "duration_mins": 60, "name": "1-Hour Morning Dhyana"},
+    {"time": "11:45", "duration_mins": 60, "name": "1-Hour Midday Zen & Stress Relief"},
+    {"time": "16:45", "duration_mins": 60, "name": "1-Hour Sunset Peace & Clarity"},
+    {"time": "21:45", "duration_mins": 120, "name": "2-Hour Deep Sleep Meditation"}
 ]
 
 def get_next_theme_index() -> int:
@@ -114,9 +116,10 @@ if __name__ == "__main__":
         print("💡 Press Ctrl+C anytime to stop.")
         print("=" * 75)
 
-        schedule.every().day.at("06:30").do(job_publish_meditation_video, duration_mins=60)
-        schedule.every().day.at("14:30").do(job_publish_meditation_video, duration_mins=60)
-        schedule.every().day.at("21:30").do(job_publish_meditation_video, duration_mins=120)
+        schedule.every().day.at("06:15").do(job_publish_meditation_video, duration_mins=60)
+        schedule.every().day.at("11:45").do(job_publish_meditation_video, duration_mins=60)
+        schedule.every().day.at("16:45").do(job_publish_meditation_video, duration_mins=60)
+        schedule.every().day.at("21:45").do(job_publish_meditation_video, duration_mins=120)
 
         while True:
             schedule.run_pending()

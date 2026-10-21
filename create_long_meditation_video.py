@@ -38,17 +38,18 @@ ASSETS_MEDITATION = ASSETS_DIR / "meditation"
 MUSIC_MEDITATION = ASSETS_DIR / "music" / "meditation"
 LOGO_PATH = ASSETS_DIR / "white_stone_logo.png"
 
-# 10 Pure, High-Definition Thematic Worlds
+# 10 Pure, High-Definition Thematic Worlds (3 Photorealistic 8K Scenes Per Theme)
 THEMES = [
     {
         "id": "himalayan_sunrise",
         "name": "Himalayan Sunrise Dhyana",
-        "scene_files": ["scene1_yogi.jpg", "scene4_banyan_monk.jpg"],
+        "scene_files": ["scene1_yogi.jpg", "scene4_banyan_monk.jpg", "scene15_himalayan_stupa.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Himalayan Sunrise Meditation | {dur_label} Deep Inner Stillness, Pranayama & Peace 🧘‍♂️🌿",
         "chapters": [
             "Himalayan Yogi Sunrise (Mindful Breathing & Stillness)",
-            "Sacred Banyan Monk at Dawn (Inner Peace & Awareness)"
+            "Sacred Banyan Monk at Dawn (Inner Peace & Awareness)",
+            "Golden Himalayan Stupa (Profound Peace & Elevation)"
         ],
         "tags": [
             "himalayan meditation", "yogi meditation", "432hz sunrise", "pranayama music",
@@ -58,11 +59,12 @@ THEMES = [
     {
         "id": "sacred_temple",
         "name": "Sacred Temple & Floating Diyas",
-        "scene_files": ["scene5_temple_yogi.jpg", "scene7_lotus_pond.jpg"],
+        "scene_files": ["scene5_temple_yogi.jpg", "scene13_varanasi_ghat.jpg", "scene7_lotus_pond.jpg"],
         "music_track": "track2.mp3",
         "title_template": "528Hz Sacred Temple Meditation | {dur_label} Positive Energy, Divine Aura & Deep Calm 🪔✨",
         "chapters": [
             "Sacred Temple Sanctuary (Divine Light & Aura Cleansing)",
+            "Sacred River Ghat at Sunrise (Pure Positive Vibration)",
             "Zen Lotus Pond at Twilight (Deep Spiritual Peace)"
         ],
         "tags": [
@@ -73,11 +75,12 @@ THEMES = [
     {
         "id": "sunset_beach",
         "name": "Golden Sunset Beach & Ocean Zen",
-        "scene_files": ["scene3_beach.jpg", "scene6_night_stars.jpg"],
+        "scene_files": ["scene3_beach.jpg", "scene12_desert_yogi.jpg", "scene6_night_stars.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Sunset Beach Meditation | {dur_label} Stress Relief, Ocean Calm & Inner Peace 🌊🧘‍♀️",
         "chapters": [
             "Golden Beach Sunset (Deep Physical & Mental Release)",
+            "Solitary Ridge at Dusk (Releasing Daily Stress)",
             "Twilight Ocean Horizon (Surrender & Anxiety Relief)"
         ],
         "tags": [
@@ -88,11 +91,12 @@ THEMES = [
     {
         "id": "bamboo_waterfall",
         "name": "Sacred Bamboo Forest & Cascading Waters",
-        "scene_files": ["scene2_waterfall.jpg", "scene8_forest_river.jpg"],
+        "scene_files": ["scene2_waterfall.jpg", "scene14_misty_bamboo_path.jpg", "scene8_forest_river.jpg"],
         "music_track": "track2.mp3",
         "title_template": "432Hz Bamboo Forest Waterfall Zen | {dur_label} Nature Healing, Mindful Peace & Stress Relief 🎋💧",
         "chapters": [
             "Sacred Bamboo Waterfall (Washing Away Tension & Negativity)",
+            "Misty Bamboo Forest Pathway (Tranquil Zen Walk)",
             "Misty Forest River Cascade (Crystal Clear Harmony & Rest)"
         ],
         "tags": [
@@ -103,11 +107,12 @@ THEMES = [
     {
         "id": "deep_sleep_cosmos",
         "name": "Cosmic Universe Deep Sleep",
-        "scene_files": ["scene6_night_stars.jpg", "scene1_yogi.jpg"],
+        "scene_files": ["scene6_night_stars.jpg", "scene10_aurora_borealis.jpg", "scene1_yogi.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Deep Sleep Cosmic Meditation | {dur_label} Fall Asleep Fast, Insomnia Relief & Delta Healing 🌙✨",
         "chapters": [
             "Milky Way Galaxy Night (Cosmic Stillness & Sleep Drift)",
+            "Celestial Northern Lights (Surrendering to Deep Sleep)",
             "Sacred Mountain Solitude (Total Relaxation & Deep Delta Rest)"
         ],
         "tags": [
@@ -118,12 +123,13 @@ THEMES = [
     {
         "id": "tibetan_monastery",
         "name": "Tibetan Cliffside Sanctuary",
-        "scene_files": ["scene11_tibetan_monastery.jpg", "scene4_banyan_monk.jpg"],
+        "scene_files": ["scene11_tibetan_monastery.jpg", "scene15_himalayan_stupa.jpg", "scene4_banyan_monk.jpg"],
         "music_track": "track2.mp3",
         "title_template": "528Hz Tibetan Monastery Chants & Bell Meditation | {dur_label} Sacred Healing & Transformation 🏔️📿",
         "chapters": [
             "Ancient Cliffside Monastery (Sacred Chants & Elevation)",
-            "Mountain Prayer Flags at Dawn (Awakening Higher Consciousness)"
+            "Golden Stupa Ridge (Awakening Higher Consciousness)",
+            "Sacred Banyan Sanctuary (Inner Balance & Stillness)"
         ],
         "tags": [
             "tibetan meditation", "528hz healing", "monastery calm", "spiritual awakening",
@@ -133,11 +139,12 @@ THEMES = [
     {
         "id": "kyoto_zen_garden",
         "name": "Kyoto Zen Rock Garden & Autumn Leaves",
-        "scene_files": ["scene9_zen_garden.jpg", "scene7_lotus_pond.jpg"],
+        "scene_files": ["scene9_zen_garden.jpg", "scene14_misty_bamboo_path.jpg", "scene7_lotus_pond.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Kyoto Zen Garden Meditation | {dur_label} Overcome Overthinking, Mental Clarity & Stillness 🍁🪨",
         "chapters": [
             "Kyoto Zen Stone Garden (Clearing the Cluttered Mind)",
+            "Misty Bamboo Path (Walking Meditation & Clarity)",
             "Autumn Maples & Still Waters (Deep Inner Balance & Focus)"
         ],
         "tags": [
@@ -148,12 +155,13 @@ THEMES = [
     {
         "id": "celestial_aurora",
         "name": "Celestial Aurora Borealis Arctic Stillness",
-        "scene_files": ["scene10_aurora_borealis.jpg", "scene6_night_stars.jpg"],
+        "scene_files": ["scene10_aurora_borealis.jpg", "scene6_night_stars.jpg", "scene8_forest_river.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Celestial Aurora Borealis Sleep | {dur_label} Deep REM Sleep, Anxiety Relief & Dreams 🌌❄️",
         "chapters": [
             "Dancing Northern Lights over Fjord (Surrender to Tranquility)",
-            "Mirror Arctic Lake Reflections (Drifting into Deep Restful Sleep)"
+            "Starlit Cosmic Night (Drifting into Deep Restful Sleep)",
+            "Misty Midnight River (Restorative Theta Sleep)"
         ],
         "tags": [
             "aurora borealis sleep", "northern lights meditation", "432hz sleep",
@@ -163,11 +171,12 @@ THEMES = [
     {
         "id": "desert_solitude",
         "name": "Golden Desert Sunset Solitude",
-        "scene_files": ["scene12_desert_yogi.jpg", "scene3_beach.jpg"],
+        "scene_files": ["scene12_desert_yogi.jpg", "scene1_yogi.jpg", "scene3_beach.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Golden Desert Sunset Meditation | {dur_label} Pure Solitude, Detox Mind & Deep Peace 🏜️🧘‍♂️",
         "chapters": [
             "Golden Sand Dunes at Sunset (Letting Go of Daily Heavy Burdens)",
+            "Mountain Yogi Sunrise (Inner Strength & Grounding)",
             "Solitary Ridge Stillness (Reconnecting with the Inner Core)"
         ],
         "tags": [
@@ -178,11 +187,12 @@ THEMES = [
     {
         "id": "lotus_sanctuary",
         "name": "Sacred Lotus Temple Sanctuary",
-        "scene_files": ["scene7_lotus_pond.jpg", "scene5_temple_yogi.jpg"],
+        "scene_files": ["scene7_lotus_pond.jpg", "scene13_varanasi_ghat.jpg", "scene5_temple_yogi.jpg"],
         "music_track": "track2.mp3",
         "title_template": "528Hz Sacred Lotus Sanctuary Meditation | {dur_label} Heart Chakra Love, Healing & Miracles 🪷🕯️",
         "chapters": [
             "Twilight Floating Lotus Lamps (Opening the Heart Chakra)",
+            "Sacred River Ghat at Sunrise (Pure Positive Vibration)",
             "Temple Sanctuary Sanctity (Attracting Peace & Positive Vibrations)"
         ],
         "tags": [
@@ -224,73 +234,67 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
             raise FileNotFoundError(f"Missing scene asset: {s}")
 
     num_scenes = len(scene_paths)
-    time_per_scene = duration_seconds / num_scenes
-    clip_base_dur = 60
-    loops_per_scene = max(1, int(round(time_per_scene / clip_base_dur)))
+    scene_dur = 120  # 2 Minutes per photo
+    trans_dur = 3    # 3-Second smooth cinematic crossfade dissolve
 
-    print(f"\n[Visuals] {num_scenes} Unique Scenes for [{theme['name']}]:")
+    print(f"\n[Visuals] {num_scenes} Unique 8K Scenes for [{theme['name']}]:")
     for idx, s in enumerate(scene_paths):
         print(f"  {idx+1}. {s.name}")
     print(f"  • Logo: {LOGO_PATH.name} (Bottom-Right corner)")
-    print(f"  • Each scene runs ~{time_per_scene/60:.1f} mins ({loops_per_scene} loops of 60s)")
+    print(f"  • Scene Motion: Left-to-Right slow cinematic pan (120s per photo)")
+    print(f"  • Scene Transitions: {trans_dur}s smooth dissolve crossfade")
 
-    scene_segment_paths = []
-    fps = 24
+    # Step A: Render Master 3-Scene Visual Sequence with 2-minute pan and cross-dissolve
+    master_seq_path = TEMP_DIR / "master_3scene_sequence.mp4"
+    print(f"\n[Visuals] Rendering Master 3-Scene Dynamic Sequence ({num_scenes * scene_dur}s with {trans_dur}s cross-dissolves)...")
 
-    for idx, s_img in enumerate(scene_paths):
-        clip_name = f"base_clip_{idx}.mp4"
-        clip_path = TEMP_DIR / clip_name
+    d = scene_dur
+    t_fade = trans_dur
+    offset1 = d - t_fade
+    offset2 = offset1 + d - t_fade
 
-        print(f"\n  [Rendering Base Clip {idx+1}/{num_scenes}] {s_img.name} (60s Ken Burns + Logo)...")
-        vf_expr = (
-            "scale=1920:1080:force_original_aspect_ratio=increase,"
-            "crop=1920:1080,"
-            "zoompan=z='min(zoom+0.000035,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1440:s=1920x1080:fps=24"
-        )
-        filter_complex = f"[0:v]{vf_expr}[zoomed];[zoomed][1:v]overlay=W-w-50:H-h-50[outv]"
+    vf_pan0 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/{d}):0,format=yuv420p"
+    vf_pan1 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(1-(t/{d})):0,format=yuv420p"
+    vf_pan2 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/{d}):(in_h-out_h)*(t/{d}),format=yuv420p"
 
-        cmd_clip = [
-            ffmpeg_exe, "-y",
-            "-loop", "1", "-i", str(s_img),
-            "-i", str(LOGO_PATH),
-            "-filter_complex", filter_complex,
-            "-map", "[outv]",
-            "-t", str(clip_base_dur),
-            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "25",
-            "-pix_fmt", "yuv420p",
-            "-an",
-            str(clip_path)
-        ]
-        subprocess.run(cmd_clip, capture_output=True, check=True)
+    filter_complex = (
+        f"[0:v]{vf_pan0}[v0];"
+        f"[1:v]{vf_pan1}[v1];"
+        f"[2:v]{vf_pan2}[v2];"
+        f"[v0][v1]xfade=transition=fade:duration={t_fade}:offset={offset1}[x1];"
+        f"[x1][v2]xfade=transition=fade:duration={t_fade}:offset={offset2}[merged];"
+        f"[merged][3:v]overlay=W-w-50:H-h-50[outv]"
+    )
 
-        scene_long_path = TEMP_DIR / f"scene_long_{idx}.mp4"
-        scene_segment_paths.append(scene_long_path)
-
-        print(f"  [Looping] Scene {idx+1} -> {loops_per_scene * clip_base_dur}s with stream copy...")
-        cmd_loop = [
-            ffmpeg_exe, "-y",
-            "-stream_loop", str(loops_per_scene - 1),
-            "-i", str(clip_path),
-            "-c", "copy",
-            str(scene_long_path)
-        ]
-        subprocess.run(cmd_loop, capture_output=True, check=True)
-
-    print("\n[Visuals] Concatenating scenes into unified timeline...")
-    concat_list = TEMP_DIR / "concat_scenes.txt"
-    with open(concat_list, "w", encoding="utf-8") as f:
-        for p in scene_segment_paths:
-            f.write(f"file '{p.name}'\n")
-
-    merged_video_visual = TEMP_DIR / "merged_visuals.mp4"
-    cmd_concat = [
+    cmd_master = [
         ffmpeg_exe, "-y",
-        "-f", "concat", "-safe", "0",
-        "-i", "concat_scenes.txt",
+        "-loop", "1", "-t", str(d), "-i", str(scene_paths[0]),
+        "-loop", "1", "-t", str(d), "-i", str(scene_paths[1]),
+        "-loop", "1", "-t", str(d), "-i", str(scene_paths[2]),
+        "-i", str(LOGO_PATH),
+        "-filter_complex", filter_complex,
+        "-map", "[outv]",
+        "-c:v", "libx264", "-preset", "ultrafast", "-crf", "24", "-r", "24",
+        "-pix_fmt", "yuv420p",
+        "-an",
+        str(master_seq_path)
+    ]
+    subprocess.run(cmd_master, capture_output=True, check=True)
+
+    master_block_dur = offset2 + d  # e.g. 117 + 117 + 120 = 354s
+    num_loops = max(1, int(round(duration_seconds / master_block_dur)) + 2)
+
+    print(f"\n[Visuals] Looping master 3-scene sequence ({num_loops} loops) with stream copy to {duration_seconds}s...")
+    merged_video_visual = TEMP_DIR / "merged_visuals.mp4"
+    cmd_loop = [
+        ffmpeg_exe, "-y",
+        "-stream_loop", str(num_loops),
+        "-i", str(master_seq_path),
+        "-t", str(duration_seconds),
         "-c", "copy",
         str(merged_video_visual)
     ]
-    subprocess.run(cmd_concat, cwd=TEMP_DIR, capture_output=True, check=True)
+    subprocess.run(cmd_loop, capture_output=True, check=True)
 
     print(f"\n[Audio] Synthesizing seamless {dur_label} healing soundscape...")
     chosen_track = MUSIC_MEDITATION / theme["music_track"]
@@ -326,20 +330,21 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     ]
     subprocess.run(cmd_final, capture_output=True, check=True)
 
-    # Dynamic SEO Metadata Generation
-    sec_per = int(time_per_scene)
-    def fmt_ts(s):
-        h = s // 3600
-        m = (s % 3600) // 60
-        sec = s % 60
-        if hours >= 1:
-            return f"{h:02d}:{m:02d}:{sec:02d}"
-        return f"{m:02d}:{sec:02d}"
-
-    formatted_chapters = []
-    for idx, ch_name in enumerate(theme["chapters"]):
-        ts_str = fmt_ts(idx * sec_per)
-        formatted_chapters.append(f"{ts_str} - {ch_name}")
+    # Dynamic SEO Metadata Generation with 2-Minute Interactive Chapters
+    formatted_chapters = [
+        f"00:00 - Scene 1: {theme['chapters'][0]}",
+        f"02:00 - Scene 2: {theme['chapters'][1]}",
+        f"04:00 - Scene 3: {theme['chapters'][2]}",
+        "06:00 - Mindful Breathing & Tension Release",
+        "15:00 - Complete Muscle Relaxation & Presence",
+        "30:00 - Inner Stillness, Anti-Anxiety & Peace",
+        "45:00 - Restorative Delta Waves & Inner Healing"
+    ]
+    if hours >= 2:
+        formatted_chapters.extend([
+            "01:00:00 - Entering Deep Sleep & Subconscious Healing",
+            "01:30:00 - Pure Cosmic Rest & Soul Rejuvenation"
+        ])
 
     chapters_str = "\n".join(formatted_chapters)
     title = theme["title_template"].format(dur_label=dur_label)

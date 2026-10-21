@@ -2,11 +2,13 @@ name: Automated Cloud Meditation Video Publisher
 
 on:
   schedule:
-    # 1. 06:45 AM IST (01:15 UTC) - 1-Hour Morning Dhyana (Off-peak minute to bypass queue delays)
-    - cron: '15 1 * * *'
-    # 2. 02:45 PM IST (09:15 UTC) - 1-Hour Afternoon Zen
-    - cron: '15 9 * * *'
-    # 3. 09:45 PM IST (16:15 UTC) - 2-Hour Deep Sleep Meditation
+    # 1. 06:15 AM IST (00:45 UTC) - 1-Hour Morning Dhyana (Asia Morning & US Night)
+    - cron: '45 0 * * *'
+    # 2. 11:45 AM IST (06:15 UTC) - 1-Hour Midday Stress Relief (EU Morning)
+    - cron: '15 6 * * *'
+    # 3. 04:45 PM IST (11:15 UTC) - 1-Hour Sunset Zen & Mindful Focus (EU Afternoon & US Morning)
+    - cron: '15 11 * * *'
+    # 4. 09:45 PM IST (16:15 UTC) - 2-Hour Deep Sleep Meditation (Asia Bedtime & US Midday)
     - cron: '15 16 * * *'
   workflow_dispatch:
     inputs:
@@ -67,6 +69,11 @@ jobs:
         run: |
           DUR="${{ inputs.duration_minutes }}"
           if [ -z "$DUR" ]; then
-            DUR="60"
+            CURRENT_HOUR=$(date -u +%H)
+            if [ "$CURRENT_HOUR" = "16" ]; then
+              DUR="120"
+            else
+              DUR="60"
+            fi
           fi
           python meditation_scheduler.py --now --duration "$DUR"
