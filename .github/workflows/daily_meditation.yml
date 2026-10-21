@@ -21,6 +21,10 @@ on:
           - '180'
           - '30'
 
+concurrency:
+  group: meditation-cloud-publisher
+  cancel-in-progress: false
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -35,15 +39,16 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install System Dependencies (FFmpeg)
+      - name: Verify & Setup FFmpeg
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          if ! command -v ffmpeg &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -n 1
 
       - name: Install Python Requirements
         run: |
-          pip install --upgrade pip
-          pip install imageio-ffmpeg pillow requests google-api-python-client google-auth-oauthlib google-auth-httplib2 schedule
+          pip install --no-cache-dir imageio-ffmpeg pillow requests google-api-python-client google-auth-oauthlib google-auth-httplib2 schedule
 
       - name: Restore Credentials from GitHub Secrets
         env:
