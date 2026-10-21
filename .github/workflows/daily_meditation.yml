@@ -2,9 +2,11 @@ name: Automated Cloud Meditation Video Publisher
 
 on:
   schedule:
-    # 06:30 AM IST (01:00 UTC) - Morning Dhyana & US Bedtime
+    # 1. 06:30 AM IST (01:00 UTC) - Morning Dhyana & US Bedtime
     - cron: '0 1 * * *'
-    # 09:30 PM IST (16:00 UTC) - Asia Bedtime & Deep Sleep Relaxation
+    # 2. 02:30 PM IST (09:00 UTC) - Afternoon Stress Relief & Zen Focus
+    - cron: '0 9 * * *'
+    # 3. 09:30 PM IST (16:00 UTC) - Asia Bedtime & Deep Sleep Relaxation
     - cron: '0 16 * * *'
   workflow_dispatch: # Allows clicking 'Run' anytime from GitHub mobile or browser
 

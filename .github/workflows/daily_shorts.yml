@@ -1,0 +1,37 @@
+name: Daily YouTube Shorts Auto-Publisher
+
+on:
+  schedule:
+    # 09:00 AM IST (03:30 UTC)
+    - cron: '30 3 * * *'
+    # 02:00 PM IST (08:30 UTC)
+    - cron: '30 8 * * *'
+    # 08:00 PM IST (14:30 UTC)
+    - cron: '30 14 * * *'
+  workflow_dispatch: # Allows manual trigger from web UI
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Dependencies
+        run: |
+          pip install edge-tts imageio-ffmpeg pillow requests google-api-python-client google-auth-oauthlib google-auth-httplib2
+
+      - name: Generate and Upload Short
+        env:
+          YOUTUBE_CLIENT_SECRET_BASE64: ${{ secrets.YOUTUBE_CLIENT_SECRET_BASE64 }}
+          YOUTUBE_TOKEN_PICKLE_BASE64: ${{ secrets.YOUTUBE_TOKEN_PICKLE_BASE64 }}
+        run: |
+          python scheduler.py --now
