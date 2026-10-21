@@ -75,13 +75,13 @@ THEMES = [
     {
         "id": "sunset_beach",
         "name": "Golden Sunset Beach & Ocean Zen",
-        "scene_files": ["scene3_beach.jpg", "scene12_desert_yogi.jpg", "scene6_night_stars.jpg"],
+        "scene_files": ["scene3_beach.jpg", "scene16_beach_ocean_sunset.jpg", "scene17_zen_beach_cove.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Sunset Beach Meditation | {dur_label} Stress Relief, Ocean Calm & Inner Peace 🌊🧘‍♀️",
         "chapters": [
             "Golden Beach Sunset (Deep Physical & Mental Release)",
-            "Solitary Ridge at Dusk (Releasing Daily Stress)",
-            "Twilight Ocean Horizon (Surrender & Anxiety Relief)"
+            "Pastel Ocean Shoreline (Releasing Daily Stress & Anxiety)",
+            "Tranquil Sunset Cove (Surrender to Complete Inner Peace)"
         ],
         "tags": [
             "ocean meditation", "beach relaxation", "sunset calm", "stress relief music",
@@ -107,13 +107,13 @@ THEMES = [
     {
         "id": "deep_sleep_cosmos",
         "name": "Cosmic Universe Deep Sleep",
-        "scene_files": ["scene6_night_stars.jpg", "scene10_aurora_borealis.jpg", "scene1_yogi.jpg"],
+        "scene_files": ["scene6_night_stars.jpg", "scene18_deep_space_nebula.jpg", "scene10_aurora_borealis.jpg"],
         "music_track": "track1.mp3",
         "title_template": "432Hz Deep Sleep Cosmic Meditation | {dur_label} Fall Asleep Fast, Insomnia Relief & Delta Healing 🌙✨",
         "chapters": [
             "Milky Way Galaxy Night (Cosmic Stillness & Sleep Drift)",
-            "Celestial Northern Lights (Surrendering to Deep Sleep)",
-            "Sacred Mountain Solitude (Total Relaxation & Deep Delta Rest)"
+            "Glowing Cosmic Nebula (Surrendering to Deep Sleep)",
+            "Celestial Northern Lights (Total Relaxation & Deep Delta Rest)"
         ],
         "tags": [
             "deep sleep music", "fall asleep fast", "insomnia cure", "cosmic meditation",
@@ -244,7 +244,7 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     print(f"  • Scene Motion: Left-to-Right slow cinematic pan (120s per photo)")
     print(f"  • Scene Transitions: {trans_dur}s smooth dissolve crossfade")
 
-    # Step A: Render Master 3-Scene Visual Sequence with 2-minute pan and cross-dissolve
+    # Step A: Render Master 3-Scene Visual Sequence with 2-minute diagonal pan and cross-dissolve
     master_seq_path = TEMP_DIR / "master_3scene_sequence.mp4"
     print(f"\n[Visuals] Rendering Master 3-Scene Dynamic Sequence ({num_scenes * scene_dur}s with {trans_dur}s cross-dissolves)...")
 
@@ -253,8 +253,11 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     offset1 = d - t_fade
     offset2 = offset1 + d - t_fade
 
-    vf_pan0 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/{d}):0,format=yuv420p"
-    vf_pan1 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(1-(t/{d})):0,format=yuv420p"
+    # Diagonal Motion 1: Bottom-Left corner to Top-Right corner
+    vf_pan0 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/{d}):(in_h-out_h)*(1-(t/{d})),format=yuv420p"
+    # Diagonal Motion 2: Bottom-Right corner to Top-Left corner
+    vf_pan1 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(1-(t/{d})):(in_h-out_h)*(1-(t/{d})),format=yuv420p"
+    # Diagonal Motion 3: Top-Left corner to Bottom-Right corner
     vf_pan2 = f"scale=2304:1296:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)*(t/{d}):(in_h-out_h)*(t/{d}),format=yuv420p"
 
     filter_complex = (
