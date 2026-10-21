@@ -1,11 +1,6 @@
 """
 meditation_scheduler.py - Fully Automated 24/7 Long-Form Meditation Video Scheduler.
-
-Automatically:
-1. Generates 30-minute / 1-hour 432Hz deep healing meditation videos.
-2. Directly uploads them to YouTube with optimized titles, descriptions, and chapters.
-3. Automatically deletes the video file after upload (0 MB disk space used).
-4. Runs daily on autopilot at optimal global meditation times.
+Supports 1-Hour, 2-Hour, and 3-Hour video durations with automatic upload and cleanup.
 """
 
 import argparse
@@ -24,21 +19,31 @@ from create_long_meditation_video import build_meditation_video
 from direct_youtube_upload import upload_latest_video
 
 # Optimal 3 global upload times for meditation / sleep music (IST):
-# - 06:30 AM IST = Morning Dhyana in Asia & Evening Sleep in US/Canada
-# - 02:30 PM IST = Afternoon Stress Relief & European Focus
-# - 09:30 PM IST = Asia Bedtime & Global Deep Sleep Relaxation
-MEDITATION_SCHEDULE_TIMES = ["06:30", "14:30", "21:30"]
+# - 06:30 AM IST = 1-Hour Morning Dhyana (Asia Morning & US Evening)
+# - 02:30 PM IST = 1-Hour Afternoon Stress Relief & Zen Focus
+# - 09:30 PM IST = 2-Hour Deep Sleep Relaxation (Asia Bedtime & Deep Insomnia Relief)
+MEDITATION_SCHEDULES = [
+    {"time": "06:30", "duration_mins": 60, "name": "1-Hour Morning Dhyana"},
+    {"time": "14:30", "duration_mins": 60, "name": "1-Hour Afternoon Zen"},
+    {"time": "21:30", "duration_mins": 120, "name": "2-Hour Deep Sleep Meditation"}
+]
 
-def job_publish_meditation_video(duration_mins: int = 30):
-    print("\n" + "=" * 70)
+def job_publish_meditation_video(duration_mins: int = 60):
+    hours = duration_mins / 60.0
+    dur_label = f"{int(hours)} Hour" if hours == int(hours) and hours >= 1 else f"{duration_mins} Minutes"
+    if hours > 1 and hours == int(hours):
+        dur_label = f"{int(hours)} Hours"
+
+    print("\n" + "=" * 75)
     print(f"🧘‍♂️ [Daily Meditation Auto-Job Triggered at {time.strftime('%Y-%m-%d %H:%M:%S')}]")
-    print("=" * 70)
+    print(f"⏱️ Target Duration: {dur_label} ({duration_mins} Minutes)")
+    print("=" * 75)
 
     try:
         # Step 1: Generate Meditation Video
         dur_seconds = duration_mins * 60
-        print(f"[Meditation Bot] Step 1: Generating {duration_mins}-Minute 432Hz video...")
-        out_video = build_meditation_video(duration_seconds=dur_seconds, output_name=f"meditation_{duration_mins}m_{int(time.time())}")
+        print(f"[Meditation Bot] Step 1: Generating {dur_label} Full HD 432Hz video...")
+        out_video = build_meditation_video(duration_seconds=dur_seconds, output_name=f"whitestone_{duration_mins}m_{int(time.time())}")
 
         # Step 2: Directly upload to YouTube
         print("\n[Meditation Bot] Step 2: Uploading directly to YouTube channel...")
@@ -52,29 +57,30 @@ def job_publish_meditation_video(duration_mins: int = 30):
     except Exception as e:
         print(f"[!] Error in meditation auto-job: {e}")
 
-    print("=" * 70 + "\n")
+    print("=" * 75 + "\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Automated Meditation YouTube Channel Bot")
-    parser.add_argument("--now", action="store_true", help="Generate and upload a 30-minute meditation video immediately")
-    parser.add_argument("--duration", type=int, default=30, help="Duration in minutes (e.g. 15, 30, 60)")
+    parser.add_argument("--now", action="store_true", help="Generate and upload a meditation video immediately")
+    parser.add_argument("--duration", type=int, default=60, help="Duration in minutes (e.g. 60 for 1 hr, 120 for 2 hrs, 180 for 3 hrs)")
     args = parser.parse_args()
 
     if args.now:
         print(f"[Meditation Bot] Running immediate execution ({args.duration} mins)...")
         job_publish_meditation_video(duration_mins=args.duration)
     else:
-        print("=" * 70)
+        print("=" * 75)
         print("🧘‍♂️ YouTube Meditation Channel Auto-Bot is ACTIVE & RUNNING!")
-        print(f"📅 Daily upload schedule: {', '.join(MEDITATION_SCHEDULE_TIMES)}")
-        print("   ⏰ 06:30 AM (Global US/EU Bedtime & India Morning Dhyana)")
-        print("   ⏰ 09:30 PM (Asia Bedtime & Deep Sleep Relaxation)")
+        print("📅 Daily upload schedule (Long-Form Videos):")
+        for s in MEDITATION_SCHEDULES:
+            print(f"   ⏰ {s['time']} IST -> {s['name']} ({s['duration_mins']} mins)")
         print("🌿 Mode: 100% Autonomous (Auto-Create -> Auto-Upload -> Auto-Delete)")
         print("💡 Press Ctrl+C anytime to stop.")
-        print("=" * 70)
+        print("=" * 75)
 
-        for sched_time in MEDITATION_SCHEDULE_TIMES:
-            schedule.every().day.at(sched_time).do(job_publish_meditation_video, duration_mins=args.duration)
+        schedule.every().day.at("06:30").do(job_publish_meditation_video, duration_mins=60)
+        schedule.every().day.at("14:30").do(job_publish_meditation_video, duration_mins=60)
+        schedule.every().day.at("21:30").do(job_publish_meditation_video, duration_mins=120)
 
         while True:
             schedule.run_pending()

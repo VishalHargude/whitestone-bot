@@ -1,18 +1,7 @@
 """
 create_long_meditation_video.py - 100% Consistent Dhyanast / Meditating Humans Theme.
 Branded with White Stone Music logo watermark in bottom-right corner.
-
-Generates 15-minute, 30-minute, 1-hour, or 2-hour meditation videos in seconds using
-Ken Burns stream-looping:
-1. Pure Dhyanast Theme (ONLY real meditating humans in deep peaceful dhyana):
-   - Scene 1: Himalayan Yogi atop mountain rock at golden sunrise
-   - Scene 2: Enlightened Monk in lotus posture under ancient sacred Banyan tree
-   - Scene 3: Serene Woman meditating on golden sand beach at sunset
-   - Scene 4: Traditional Yogi in white meditating inside ancient temple sanctuary with glowing diyas
-2. White Stone Music logo watermark in the bottom-right corner
-3. Ultra-gentle cinematic Ken Burns breathing motion
-4. 432Hz Deep Healing & Anxiety Relief Soundscape
-5. Comprehensive YouTube SEO Metadata (Viral Tags, Description, Chapters)
+Supports 30-Minute, 1-Hour, 2-Hour, and 3-Hour video durations with Ken Burns stream-looping.
 """
 
 import gc
@@ -36,15 +25,22 @@ ASSETS_MEDITATION = ASSETS_DIR / "meditation"
 MUSIC_MEDITATION = ASSETS_DIR / "music" / "meditation"
 LOGO_PATH = ASSETS_DIR / "white_stone_logo.png"
 
-def build_meditation_video(duration_seconds: int = 1800, output_name: str = "whitestone_meditation_30min") -> Path:
+def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whitestone_meditation") -> Path:
     """
     Renders a Full HD 1080p (16:9) meditation video with 100% consistent Dhyanast scenes
     and White Stone Music logo watermark in bottom-right corner.
+    Supports 3600s (1 Hour), 7200s (2 Hours), 10800s (3 Hours).
     """
     t_start = time.time()
     mins = duration_seconds // 60
+    hours = mins / 60.0
+
+    dur_label = f"{int(hours)} Hour" if hours == int(hours) and hours >= 1 else f"{mins} Minutes"
+    if hours > 1 and hours == int(hours):
+        dur_label = f"{int(hours)} Hours"
+
     print("=" * 75)
-    print(f"🧘‍♂️ White Stone Music - Automated Video Generator: {mins} Minutes ({duration_seconds}s)")
+    print(f"🧘‍♂️ White Stone Music - Long-Form Video Generator: {dur_label} ({duration_seconds}s)")
     print("=" * 75)
 
     ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
@@ -83,7 +79,6 @@ def build_meditation_video(duration_seconds: int = 1800, output_name: str = "whi
         clip_path = TEMP_DIR / clip_name
 
         print(f"\n  [Rendering Base Clip {idx+1}/{num_scenes}] {s_img.name} (60s Ken Burns + Logo)...")
-        # Subtly zoom from 1.0 to 1.05 over 60s (1440 frames) and overlay logo bottom-right
         vf_expr = (
             "scale=1920:1080:force_original_aspect_ratio=increase,"
             "crop=1920:1080,"
@@ -137,7 +132,7 @@ def build_meditation_video(duration_seconds: int = 1800, output_name: str = "whi
     subprocess.run(cmd_concat, cwd=TEMP_DIR, capture_output=True, check=True)
 
     # Step 4: Prepare Looped 432Hz Meditation Music
-    print(f"\n[Audio] Synthesizing seamless {mins}-minute 432Hz ambient soundscape...")
+    print(f"\n[Audio] Synthesizing seamless {dur_label} 432Hz ambient soundscape...")
     track1 = MUSIC_MEDITATION / "track1.mp3"
     track2 = MUSIC_MEDITATION / "track2.mp3"
 
@@ -177,19 +172,32 @@ def build_meditation_video(duration_seconds: int = 1800, output_name: str = "whi
     ]
     subprocess.run(cmd_final, capture_output=True, check=True)
 
-    # Step 6: Metadata Generation
+    # Step 6: Dynamic SEO Metadata Generation
     sec_per = int(time_per_scene)
-    ch1 = "00:00 - Himalayan Yogi Sunrise (Mindful Breathing & Stillness)"
-    ch2 = f"{sec_per//60:02d}:{sec_per%60:02d} - Sacred Banyan Monk (Inner Peace & Awareness)"
-    ch3 = f"{sec_per*2//60:02d}:{sec_per*2%60:02d} - Golden Beach Sunset (Deep Physical & Mental Release)"
-    ch4 = f"{sec_per*3//60:02d}:{sec_per*3%60:02d} - Sacred Temple Sanctuary (Divine Light & Restorative Sleep)"
+    def fmt_ts(s):
+        h = s // 3600
+        m = (s % 3600) // 60
+        sec = s % 60
+        if hours >= 1:
+            return f"{h:02d}:{m:02d}:{sec:02d}"
+        return f"{m:02d}:{sec:02d}"
+
+    ch1 = f"{fmt_ts(0)} - Himalayan Yogi Sunrise (Mindful Breathing & Stillness)"
+    ch2 = f"{fmt_ts(sec_per)} - Sacred Banyan Monk at Dawn (Inner Peace & Awareness)"
+    ch3 = f"{fmt_ts(sec_per*2)} - Golden Beach Sunset (Deep Physical & Mental Release)"
+    ch4 = f"{fmt_ts(sec_per*3)} - Sacred Temple Sanctuary (Divine Light & Restorative Sleep)"
+
+    if mins >= 120:
+        title = f"432Hz Deep Sleep Meditation Music | {dur_label} Fall Asleep Fast, Insomnia Relief & Stress Relief 🌙✨"
+    else:
+        title = f"432Hz Deep Healing Meditation Music | {dur_label} Stress Relief, Zen Mindfulness & Sleep 🧘‍♂️🌿"
 
     meta_path = final_mp4.with_suffix(".json")
     meta = {
-        "title": f"432Hz Deep Healing Meditation Music | {mins}-Minute Stress Relief, Zen Mindfulness & Sleep 🧘‍♂️🌿",
+        "title": title,
         "description": (
             "🧘‍♂️ Welcome to White Stone Music.\n"
-            f"Immerse your mind, body, and soul in this peaceful {mins}-minute 432Hz deep healing meditation session.\n\n"
+            f"Immerse your mind, body, and soul in this peaceful {dur_label} 432Hz deep healing meditation session.\n\n"
             "Composed with sacred natural harmonic vibrations known as the 'Miracle Tone', this session guides "
             "you into deep theta states for profound peace, stress reduction, and restorative deep sleep.\n\n"
             "✨ PERFECT FOR:\n"
@@ -213,7 +221,8 @@ def build_meditation_video(duration_seconds: int = 1800, output_name: str = "whi
             "stress relief music", "peaceful sleep music", "relaxing music", "zen meditation",
             "healing frequency 432hz", "calm music for anxiety", "fall asleep in 10 minutes",
             "binaural beats", "yoga meditation music", "positive energy vibration",
-            "insomnia cure music", "deep sleep relaxation", "dhyana meditation"
+            "insomnia cure music", "deep sleep relaxation", "dhyana meditation",
+            f"{dur_label.lower()} meditation", f"{dur_label.lower()} sleep music"
         ],
         "video_path": str(final_mp4),
         "duration_minutes": mins,
@@ -245,7 +254,7 @@ def build_meditation_video(duration_seconds: int = 1800, output_name: str = "whi
     size_mb = final_mp4.stat().st_size / (1024 * 1024)
 
     print("\n" + "=" * 75)
-    print(f"🎉 [White Stone Music] SUCCESS! Watermarked {mins}-Minute Video Generated in {elapsed:.1f}s!")
+    print(f"🎉 [White Stone Music] SUCCESS! Watermarked {dur_label} Video Generated in {elapsed:.1f}s!")
     print(f"📁 Video Location: {final_mp4}")
     print(f"📦 File Size: {size_mb:.2f} MB")
     print(f"📝 Metadata: {meta_path}")
@@ -254,7 +263,7 @@ def build_meditation_video(duration_seconds: int = 1800, output_name: str = "whi
     return final_mp4
 
 if __name__ == "__main__":
-    dur = 1800  # Default 30 mins
+    dur = 3600  # Default 1 Hour (3600s)
     if len(sys.argv) > 1:
         dur = int(sys.argv[1])
     build_meditation_video(duration_seconds=dur, output_name=f"whitestone_meditation_{dur//60}min")

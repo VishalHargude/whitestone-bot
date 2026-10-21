@@ -2,18 +2,29 @@ name: Automated Cloud Meditation Video Publisher
 
 on:
   schedule:
-    # 1. 06:30 AM IST (01:00 UTC) - Morning Dhyana & US Bedtime
+    # 1. 06:30 AM IST (01:00 UTC) - 1-Hour Morning Dhyana
     - cron: '0 1 * * *'
-    # 2. 02:30 PM IST (09:00 UTC) - Afternoon Stress Relief & Zen Focus
+    # 2. 02:30 PM IST (09:00 UTC) - 1-Hour Afternoon Zen
     - cron: '0 9 * * *'
-    # 3. 09:30 PM IST (16:00 UTC) - Asia Bedtime & Deep Sleep Relaxation
+    # 3. 09:30 PM IST (16:00 UTC) - 2-Hour Deep Sleep Meditation
     - cron: '0 16 * * *'
-  workflow_dispatch: # Allows clicking 'Run' anytime from GitHub mobile or browser
+  workflow_dispatch:
+    inputs:
+      duration_minutes:
+        description: 'Video Duration (Minutes)'
+        required: true
+        default: '60'
+        type: choice
+        options:
+          - '60'
+          - '120'
+          - '180'
+          - '30'
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
 
     steps:
       - name: Checkout Code
@@ -47,6 +58,10 @@ jobs:
             echo "$TOKEN_PICKLE_B64" | base64 -d > token.pickle
           fi
 
-      - name: Generate & Upload 30-Minute Pure Dhyanast Meditation Video
+      - name: Generate & Upload Long-Form Meditation Video
         run: |
-          python meditation_scheduler.py --now --duration 30
+          DUR="${{ inputs.duration_minutes }}"
+          if [ -z "$DUR" ]; then
+            DUR="60"
+          fi
+          python meditation_scheduler.py --now --duration "$DUR"
