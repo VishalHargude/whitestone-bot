@@ -2,12 +2,12 @@ name: Automated Cloud Meditation Video Publisher
 
 on:
   schedule:
-    # 1. 06:30 AM IST (01:00 UTC) - 1-Hour Morning Dhyana
-    - cron: '0 1 * * *'
-    # 2. 02:30 PM IST (09:00 UTC) - 1-Hour Afternoon Zen
-    - cron: '0 9 * * *'
-    # 3. 09:30 PM IST (16:00 UTC) - 2-Hour Deep Sleep Meditation
-    - cron: '0 16 * * *'
+    # 1. 06:45 AM IST (01:15 UTC) - 1-Hour Morning Dhyana (Off-peak minute to bypass queue delays)
+    - cron: '15 1 * * *'
+    # 2. 02:45 PM IST (09:15 UTC) - 1-Hour Afternoon Zen
+    - cron: '15 9 * * *'
+    # 3. 09:45 PM IST (16:15 UTC) - 2-Hour Deep Sleep Meditation
+    - cron: '15 16 * * *'
   workflow_dispatch:
     inputs:
       duration_minutes:
