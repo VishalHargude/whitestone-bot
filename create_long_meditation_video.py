@@ -44,7 +44,7 @@ THEMES = [
         "id": "himalayan_sunrise",
         "name": "Himalayan Sunrise Dhyana",
         "scene_files": ["scene1_yogi.jpg", "scene4_banyan_monk.jpg", "scene15_himalayan_stupa.jpg"],
-        "music_track": "track1.mp3",
+        "music_track": "track1_himalayan.mp3",
         "title_template": "432Hz Himalayan Sunrise Meditation | {dur_label} Deep Inner Stillness, Pranayama & Peace 🧘‍♂️🌿",
         "chapters": [
             "Himalayan Yogi Sunrise (Mindful Breathing & Stillness)",
@@ -60,7 +60,7 @@ THEMES = [
         "id": "sacred_temple",
         "name": "Sacred Temple & Floating Diyas",
         "scene_files": ["scene5_temple_yogi.jpg", "scene13_varanasi_ghat.jpg", "scene7_lotus_pond.jpg"],
-        "music_track": "track2.mp3",
+        "music_track": "track2_temple.mp3",
         "title_template": "528Hz Sacred Temple Meditation | {dur_label} Positive Energy, Divine Aura & Deep Calm 🪔✨",
         "chapters": [
             "Sacred Temple Sanctuary (Divine Light & Aura Cleansing)",
@@ -76,7 +76,7 @@ THEMES = [
         "id": "sunset_beach",
         "name": "Golden Sunset Beach & Ocean Zen",
         "scene_files": ["scene3_beach.jpg", "scene16_beach_ocean_sunset.jpg", "scene17_zen_beach_cove.jpg"],
-        "music_track": "track1.mp3",
+        "music_track": "track3_beach.mp3",
         "title_template": "432Hz Sunset Beach Meditation | {dur_label} Stress Relief, Ocean Calm & Inner Peace 🌊🧘‍♀️",
         "chapters": [
             "Golden Beach Sunset (Deep Physical & Mental Release)",
@@ -92,7 +92,7 @@ THEMES = [
         "id": "bamboo_waterfall",
         "name": "Sacred Bamboo Forest & Cascading Waters",
         "scene_files": ["scene2_waterfall.jpg", "scene14_misty_bamboo_path.jpg", "scene8_forest_river.jpg"],
-        "music_track": "track2.mp3",
+        "music_track": "track4_bamboo_waterfall.mp3",
         "title_template": "432Hz Bamboo Forest Waterfall Zen | {dur_label} Nature Healing, Mindful Peace & Stress Relief 🎋💧",
         "chapters": [
             "Sacred Bamboo Waterfall (Washing Away Tension & Negativity)",
@@ -108,7 +108,7 @@ THEMES = [
         "id": "deep_sleep_cosmos",
         "name": "Cosmic Universe Deep Sleep",
         "scene_files": ["scene6_night_stars.jpg", "scene18_deep_space_nebula.jpg", "scene10_aurora_borealis.jpg"],
-        "music_track": "track1.mp3",
+        "music_track": "track5_deep_sleep_cosmos.mp3",
         "title_template": "432Hz Deep Sleep Cosmic Meditation | {dur_label} Fall Asleep Fast, Insomnia Relief & Delta Healing 🌙✨",
         "chapters": [
             "Milky Way Galaxy Night (Cosmic Stillness & Sleep Drift)",
@@ -124,7 +124,7 @@ THEMES = [
         "id": "tibetan_monastery",
         "name": "Tibetan Cliffside Sanctuary",
         "scene_files": ["scene11_tibetan_monastery.jpg", "scene15_himalayan_stupa.jpg", "scene4_banyan_monk.jpg"],
-        "music_track": "track2.mp3",
+        "music_track": "track6_tibetan_monastery.mp3",
         "title_template": "528Hz Tibetan Monastery Chants & Bell Meditation | {dur_label} Sacred Healing & Transformation 🏔️📿",
         "chapters": [
             "Ancient Cliffside Monastery (Sacred Chants & Elevation)",
@@ -140,7 +140,7 @@ THEMES = [
         "id": "kyoto_zen_garden",
         "name": "Kyoto Zen Rock Garden & Autumn Leaves",
         "scene_files": ["scene9_zen_garden.jpg", "scene14_misty_bamboo_path.jpg", "scene7_lotus_pond.jpg"],
-        "music_track": "track1.mp3",
+        "music_track": "track7_kyoto_zen.mp3",
         "title_template": "432Hz Kyoto Zen Garden Meditation | {dur_label} Overcome Overthinking, Mental Clarity & Stillness 🍁🪨",
         "chapters": [
             "Kyoto Zen Stone Garden (Clearing the Cluttered Mind)",
@@ -156,7 +156,7 @@ THEMES = [
         "id": "celestial_aurora",
         "name": "Celestial Aurora Borealis Arctic Stillness",
         "scene_files": ["scene10_aurora_borealis.jpg", "scene6_night_stars.jpg", "scene8_forest_river.jpg"],
-        "music_track": "track1.mp3",
+        "music_track": "track8_aurora_sleep.mp3",
         "title_template": "432Hz Celestial Aurora Borealis Sleep | {dur_label} Deep REM Sleep, Anxiety Relief & Dreams 🌌❄️",
         "chapters": [
             "Dancing Northern Lights over Fjord (Surrender to Tranquility)",
@@ -172,7 +172,7 @@ THEMES = [
         "id": "desert_solitude",
         "name": "Golden Desert Sunset Solitude",
         "scene_files": ["scene12_desert_yogi.jpg", "scene1_yogi.jpg", "scene3_beach.jpg"],
-        "music_track": "track1.mp3",
+        "music_track": "track9_desert_solitude.mp3",
         "title_template": "432Hz Golden Desert Sunset Meditation | {dur_label} Pure Solitude, Detox Mind & Deep Peace 🏜️🧘‍♂️",
         "chapters": [
             "Golden Sand Dunes at Sunset (Letting Go of Daily Heavy Burdens)",
@@ -188,7 +188,7 @@ THEMES = [
         "id": "lotus_sanctuary",
         "name": "Sacred Lotus Temple Sanctuary",
         "scene_files": ["scene7_lotus_pond.jpg", "scene13_varanasi_ghat.jpg", "scene5_temple_yogi.jpg"],
-        "music_track": "track2.mp3",
+        "music_track": "track10_lotus_pond.mp3",
         "title_template": "528Hz Sacred Lotus Sanctuary Meditation | {dur_label} Heart Chakra Love, Healing & Miracles 🪷🕯️",
         "chapters": [
             "Twilight Floating Lotus Lamps (Opening the Heart Chakra)",
