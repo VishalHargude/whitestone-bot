@@ -1,7 +1,7 @@
 """
 thumbnail_maker.py - High-Converting YouTube Custom Thumbnail Generator.
-Creates distinct, high-CTR 1280x720 thumbnails for each meditation theme:
-- Distinct color themes (Golden Temple, Purple Galaxy, Emerald Waterfall, Pastel Beach, Mountain Sunrise)
+Creates distinct, high-CTR 1280x720 thumbnails for all meditation themes:
+- Distinct color schemes (Amber, Gold, Turquoise, Emerald, Deep Purple, Violet, Autumn Red, Sunset Coral, Rose Gold)
 - Radiant Frequency Badges (432Hz / 528Hz)
 - Bold, High-Contrast Typography for mobile and desktop screens
 - White Stone Music brand watermark
@@ -32,7 +32,7 @@ THEME_THUMB_STYLES = {
     },
     "sunset_beach": {
         "freq": "432 Hz",
-        "badge_color": (220, 120, 70),
+        "badge_color": (220, 110, 70),
         "headline": "STRESS RELIEF",
         "subline": "& ANXIETY CALM",
         "pill_text": "Instant Deep Relaxation 🌊",
@@ -53,6 +53,46 @@ THEME_THUMB_STYLES = {
         "subline": "& INSOMNIA CURE",
         "pill_text": "Fall Asleep In 10 Mins 🌙",
         "pill_color": (210, 180, 255)
+    },
+    "tibetan_monastery": {
+        "freq": "528 Hz",
+        "badge_color": (215, 60, 45),
+        "headline": "SACRED CHANTS",
+        "subline": "& TRANSFORMATION",
+        "pill_text": "Ancient Monks Healing 🏔️",
+        "pill_color": (255, 190, 180)
+    },
+    "kyoto_zen_garden": {
+        "freq": "432 Hz",
+        "badge_color": (195, 125, 45),
+        "headline": "MINDFUL CALM",
+        "subline": "& CLARITY",
+        "pill_text": "Overcome Overthinking 🍁",
+        "pill_color": (255, 220, 150)
+    },
+    "celestial_aurora": {
+        "freq": "432 Hz",
+        "badge_color": (30, 210, 170),
+        "headline": "ASTRUM AURORA",
+        "subline": "& DEEP RELIEF",
+        "pill_text": "Celestial Sleep Drift ✨",
+        "pill_color": (170, 255, 235)
+    },
+    "desert_solitude": {
+        "freq": "432 Hz",
+        "badge_color": (225, 155, 50),
+        "headline": "SOUL SILENCE",
+        "subline": "& DETOX MIND",
+        "pill_text": "Pure Solitude Peace 🏜️",
+        "pill_color": (255, 230, 160)
+    },
+    "lotus_sanctuary": {
+        "freq": "528 Hz",
+        "badge_color": (220, 80, 140),
+        "headline": "DIVINE LOTUS",
+        "subline": "& HEART CHAKRA",
+        "pill_text": "Love & Self Healing 🪷",
+        "pill_color": (255, 190, 225)
     }
 }
 
@@ -83,7 +123,7 @@ def generate_custom_thumbnail(scene_img_path: Path, theme_id: str, dur_label: st
     except Exception:
         font_badge = font_dur = font_head = font_sub = font_pill = ImageFont.load_default()
 
-    # 1. Frequency Badge (Golden / Emerald / Purple glow)
+    # 1. Frequency Badge
     b_color = style["badge_color"]
     draw.rounded_rectangle([(60, 55), (210, 105)], radius=12, fill=b_color, outline=(255, 255, 255), width=2)
     draw.text((78, 65), style["freq"], font=font_badge, fill=(10, 10, 10))
