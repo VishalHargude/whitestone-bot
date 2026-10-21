@@ -114,6 +114,9 @@ def upload_direct(video_path: Path, title: str, description: str, tags: list, ca
             thumb_media = MediaFileUpload(str(thumb_path), mimetype="image/jpeg")
             youtube.thumbnails().set(videoId=video_id, media_body=thumb_media).execute()
             print(f"[YouTube Direct] 🖼️ Custom HD Thumbnail applied successfully!")
+            del thumb_media
+            gc.collect()
+            time.sleep(1)
             thumb_path.unlink(missing_ok=True)
         except Exception as e:
             print(f"[YouTube Direct] Thumbnail notice: {e}")
