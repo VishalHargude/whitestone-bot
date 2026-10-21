@@ -1,7 +1,14 @@
 """
-create_long_meditation_video.py - 100% Consistent Dhyanast / Meditating Humans Theme.
+create_long_meditation_video.py - Dynamic Multi-Theme Long-Form Meditation Video Generator.
 Branded with White Stone Music logo watermark in bottom-right corner.
 Supports 30-Minute, 1-Hour, 2-Hour, and 3-Hour video durations with Ken Burns stream-looping.
+
+5 Distinct Thematic Worlds (Never Repeats):
+1. Himalayan Sunrise Dhyana (Mountain Yogi & Ancient Banyan Monk) - 432Hz
+2. Sacred Temple & Floating Diyas (Ancient Sanctum & Zen Lotus Pond) - 528Hz
+3. Golden Sunset Beach & Night Sky (Sunset Ocean Shore & Cosmic Yogi) - 432Hz
+4. Sacred Bamboo Forest & Cascading Waters (Bamboo Waterfall & Forest Stream) - 432Hz
+5. Cosmic Universe Deep Sleep (Milky Way Galaxy & Delta Wave Stillness) - 432Hz
 """
 
 import gc
@@ -25,11 +32,89 @@ ASSETS_MEDITATION = ASSETS_DIR / "meditation"
 MUSIC_MEDITATION = ASSETS_DIR / "music" / "meditation"
 LOGO_PATH = ASSETS_DIR / "white_stone_logo.png"
 
-def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whitestone_meditation") -> Path:
+# 5 Pure, High-Definition Thematic Worlds
+THEMES = [
+    {
+        "id": "himalayan_sunrise",
+        "name": "Himalayan Sunrise Dhyana",
+        "scene_files": ["scene1_yogi.jpg", "scene4_banyan_monk.jpg"],
+        "music_track": "track1.mp3",
+        "title_template": "432Hz Himalayan Sunrise Meditation | {dur_label} Deep Inner Stillness, Pranayama & Peace 🧘‍♂️🌿",
+        "chapters": [
+            "Himalayan Yogi Sunrise (Mindful Breathing & Stillness)",
+            "Sacred Banyan Monk at Dawn (Inner Peace & Awareness)"
+        ],
+        "tags": [
+            "himalayan meditation", "yogi meditation", "432hz sunrise", "pranayama music",
+            "inner peace", "dhyana meditation", "deep healing music", "white stone music"
+        ]
+    },
+    {
+        "id": "sacred_temple",
+        "name": "Sacred Temple & Floating Diyas",
+        "scene_files": ["scene5_temple_yogi.jpg", "scene7_lotus_pond.jpg"],
+        "music_track": "track2.mp3",
+        "title_template": "528Hz Sacred Temple Meditation | {dur_label} Positive Energy, Divine Aura & Deep Calm 🪔✨",
+        "chapters": [
+            "Sacred Temple Sanctuary (Divine Light & Aura Cleansing)",
+            "Zen Lotus Pond at Twilight (Deep Spiritual Peace)"
+        ],
+        "tags": [
+            "temple meditation", "528hz miracle tone", "sacred diyas", "spiritual healing",
+            "aura cleansing", "divine meditation", "positive energy", "white stone music"
+        ]
+    },
+    {
+        "id": "sunset_beach",
+        "name": "Golden Sunset Beach & Ocean Zen",
+        "scene_files": ["scene3_beach.jpg", "scene6_night_stars.jpg"],
+        "music_track": "track1.mp3",
+        "title_template": "432Hz Sunset Beach Meditation | {dur_label} Stress Relief, Ocean Calm & Inner Peace 🌊🧘‍♀️",
+        "chapters": [
+            "Golden Beach Sunset (Deep Physical & Mental Release)",
+            "Twilight Ocean Horizon (Surrender & Anxiety Relief)"
+        ],
+        "tags": [
+            "ocean meditation", "beach relaxation", "sunset calm", "stress relief music",
+            "anti anxiety", "peaceful sleep", "mindfulness waves", "white stone music"
+        ]
+    },
+    {
+        "id": "bamboo_waterfall",
+        "name": "Sacred Bamboo Forest & Cascading Waters",
+        "scene_files": ["scene2_waterfall.jpg", "scene8_forest_river.jpg"],
+        "music_track": "track2.mp3",
+        "title_template": "432Hz Bamboo Forest Waterfall Zen | {dur_label} Nature Healing, Mindful Peace & Stress Relief 🎋💧",
+        "chapters": [
+            "Sacred Bamboo Waterfall (Washing Away Tension & Negativity)",
+            "Misty Forest River Cascade (Crystal Clear Harmony & Rest)"
+        ],
+        "tags": [
+            "waterfall meditation", "nature sounds zen", "bamboo forest", "zen water healing",
+            "nature therapy", "calming river", "deep relaxation", "white stone music"
+        ]
+    },
+    {
+        "id": "deep_sleep_cosmos",
+        "name": "Cosmic Universe Deep Sleep",
+        "scene_files": ["scene6_night_stars.jpg", "scene1_yogi.jpg"],
+        "music_track": "track1.mp3",
+        "title_template": "432Hz Deep Sleep Cosmic Meditation | {dur_label} Fall Asleep Fast, Insomnia Relief & Delta Healing 🌙✨",
+        "chapters": [
+            "Milky Way Galaxy Night (Cosmic Stillness & Sleep Drift)",
+            "Sacred Mountain Solitude (Total Relaxation & Deep Delta Rest)"
+        ],
+        "tags": [
+            "deep sleep music", "fall asleep fast", "insomnia cure", "cosmic meditation",
+            "night relaxation", "delta wave healing", "sleep aid music", "white stone music"
+        ]
+    }
+]
+
+def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None, output_name: str = "whitestone_meditation") -> Path:
     """
-    Renders a Full HD 1080p (16:9) meditation video with 100% consistent Dhyanast scenes
+    Renders a Full HD 1080p (16:9) meditation video with curated themes
     and White Stone Music logo watermark in bottom-right corner.
-    Supports 3600s (1 Hour), 7200s (2 Hours), 10800s (3 Hours).
     """
     t_start = time.time()
     mins = duration_seconds // 60
@@ -39,34 +124,35 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
     if hours > 1 and hours == int(hours):
         dur_label = f"{int(hours)} Hours"
 
+    # Select theme dynamically if not specified
+    if theme_index is None:
+        # Rotate based on current day and hour
+        theme_index = int((time.time() // (4 * 3600))) % len(THEMES)
+
+    theme = THEMES[theme_index % len(THEMES)]
+
     print("=" * 75)
-    print(f"🧘‍♂️ White Stone Music - Long-Form Video Generator: {dur_label} ({duration_seconds}s)")
+    print(f"🧘‍♂️ White Stone Music - Long-Form Video Generator")
+    print(f"🎨 Selected Theme: [{theme['name']}]")
+    print(f"⏱️ Duration: {dur_label} ({duration_seconds}s)")
     print("=" * 75)
 
     ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
 
-    # Step 1: Pure Dhyanast Scenes (ONLY Meditating Humans)
-    scene_files = [
-        ASSETS_MEDITATION / "scene1_yogi.jpg",         # Himalayan Yogi sunrise
-        ASSETS_MEDITATION / "scene4_banyan_monk.jpg",  # Sacred Banyan tree monk
-        ASSETS_MEDITATION / "scene3_beach.jpg",        # Golden beach sunset woman
-        ASSETS_MEDITATION / "scene5_temple_yogi.jpg"   # Ancient temple sanctuary yogi
-    ]
-
-    for s in scene_files:
+    # Step 1: Prepare theme scene files
+    scene_paths = [ASSETS_MEDITATION / f for f in theme["scene_files"]]
+    for s in scene_paths:
         if not s.exists():
-            raise FileNotFoundError(f"Missing meditation scene asset: {s}")
+            raise FileNotFoundError(f"Missing scene asset: {s}")
 
-    num_scenes = len(scene_files)
+    num_scenes = len(scene_paths)
     time_per_scene = duration_seconds / num_scenes
     clip_base_dur = 60  # 60-second micro-clip
     loops_per_scene = max(1, int(round(time_per_scene / clip_base_dur)))
 
-    print(f"\n[Visuals] {num_scenes} Pure Dhyanast Scenes with White Stone Music Watermark:")
-    print(f"  1. Himalayan Yogi at Golden Sunrise")
-    print(f"  2. Sacred Banyan Tree Monk at Dawn")
-    print(f"  3. Golden Beach Sunset Meditating Woman")
-    print(f"  4. Sacred Temple Sanctuary Yogi with Glowing Diyas")
+    print(f"\n[Visuals] {num_scenes} Thematic Scenes for [{theme['name']}]:")
+    for idx, s in enumerate(scene_paths):
+        print(f"  {idx+1}. {s.name}")
     print(f"  • Logo: {LOGO_PATH.name} (Bottom-Right corner)")
     print(f"  • Each scene will run for ~{time_per_scene/60:.1f} minutes ({loops_per_scene} loops of 60s)")
 
@@ -74,7 +160,7 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
     scene_segment_paths = []
     fps = 24
 
-    for idx, s_img in enumerate(scene_files):
+    for idx, s_img in enumerate(scene_paths):
         clip_name = f"base_clip_{idx}.mp4"
         clip_path = TEMP_DIR / clip_name
 
@@ -114,7 +200,7 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
         ]
         subprocess.run(cmd_loop, capture_output=True, check=True)
 
-    # Step 3: Concatenate all scene segments
+    # Step 3: Concatenate scene segments
     print("\n[Visuals] Concatenating scenes into unified timeline...")
     concat_list = TEMP_DIR / "concat_scenes.txt"
     with open(concat_list, "w", encoding="utf-8") as f:
@@ -131,15 +217,11 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
     ]
     subprocess.run(cmd_concat, cwd=TEMP_DIR, capture_output=True, check=True)
 
-    # Step 4: Prepare Looped 432Hz Meditation Music
-    print(f"\n[Audio] Synthesizing seamless {dur_label} 432Hz ambient soundscape...")
-    track1 = MUSIC_MEDITATION / "track1.mp3"
-    track2 = MUSIC_MEDITATION / "track2.mp3"
-
-    music_concat_txt = TEMP_DIR / "music_concat.txt"
-    with open(music_concat_txt, "w", encoding="utf-8") as f:
-        f.write(f"file '{track1.resolve().as_posix()}'\n")
-        f.write(f"file '{track2.resolve().as_posix()}'\n")
+    # Step 4: Prepare Looped Meditation Music
+    print(f"\n[Audio] Synthesizing seamless {dur_label} healing soundscape...")
+    chosen_track = MUSIC_MEDITATION / theme["music_track"]
+    if not chosen_track.exists():
+        chosen_track = MUSIC_MEDITATION / "track1.mp3"
 
     audio_loop_path = TEMP_DIR / "looped_meditation_audio.mp3"
     fade_start = max(1, duration_seconds - 5)
@@ -147,9 +229,8 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
 
     cmd_audio = [
         ffmpeg_exe, "-y",
-        "-f", "concat", "-safe", "0",
         "-stream_loop", "-1",
-        "-i", str(music_concat_txt),
+        "-i", str(chosen_track),
         "-t", str(duration_seconds),
         "-af", af_filter,
         "-c:a", "libmp3lame", "-b:a", "192k",
@@ -182,24 +263,22 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
             return f"{h:02d}:{m:02d}:{sec:02d}"
         return f"{m:02d}:{sec:02d}"
 
-    ch1 = f"{fmt_ts(0)} - Himalayan Yogi Sunrise (Mindful Breathing & Stillness)"
-    ch2 = f"{fmt_ts(sec_per)} - Sacred Banyan Monk at Dawn (Inner Peace & Awareness)"
-    ch3 = f"{fmt_ts(sec_per*2)} - Golden Beach Sunset (Deep Physical & Mental Release)"
-    ch4 = f"{fmt_ts(sec_per*3)} - Sacred Temple Sanctuary (Divine Light & Restorative Sleep)"
+    formatted_chapters = []
+    for idx, ch_name in enumerate(theme["chapters"]):
+        ts_str = fmt_ts(idx * sec_per)
+        formatted_chapters.append(f"{ts_str} - {ch_name}")
 
-    if mins >= 120:
-        title = f"432Hz Deep Sleep Meditation Music | {dur_label} Fall Asleep Fast, Insomnia Relief & Stress Relief 🌙✨"
-    else:
-        title = f"432Hz Deep Healing Meditation Music | {dur_label} Stress Relief, Zen Mindfulness & Sleep 🧘‍♂️🌿"
+    chapters_str = "\n".join(formatted_chapters)
+    title = theme["title_template"].format(dur_label=dur_label)
 
     meta_path = final_mp4.with_suffix(".json")
     meta = {
         "title": title,
         "description": (
             "🧘‍♂️ Welcome to White Stone Music.\n"
-            f"Immerse your mind, body, and soul in this peaceful {dur_label} 432Hz deep healing meditation session.\n\n"
-            "Composed with sacred natural harmonic vibrations known as the 'Miracle Tone', this session guides "
-            "you into deep theta states for profound peace, stress reduction, and restorative deep sleep.\n\n"
+            f"Immerse your mind, body, and soul in this peaceful {dur_label} healing meditation session: [{theme['name']}].\n\n"
+            "Composed with sacred natural harmonic vibrations, this session guides "
+            "you into deep theta and delta states for profound peace, anxiety relief, and restorative sleep.\n\n"
             "✨ PERFECT FOR:\n"
             "• Deep Sleep & Overcoming Insomnia\n"
             "• Reducing Anxiety, Tension & Overthinking\n"
@@ -207,26 +286,21 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
             "• Aura Cleansing & Positive Vibration\n"
             "• Study, Focus, Zen Mindfulness & Work Concentration\n\n"
             "⏱️ TIMESTAMPS / CHAPTERS:\n"
-            f"{ch1}\n"
-            f"{ch2}\n"
-            f"{ch3}\n"
-            f"{ch4}\n\n"
-            "🎧 Headphones recommended for maximum 432Hz binaural relaxation.\n"
+            f"{chapters_str}\n\n"
+            "🎧 Headphones recommended for maximum binaural relaxation.\n"
             "🔔 Subscribe to White Stone Music for daily peaceful meditation videos!\n"
             "👍 If this music brought you peace, please like, share, and subscribe.\n\n"
-            "#meditationmusic #432hz #whitestonemusic #deepsleep #stressrelief #zen #healingmusic #yoga #mindfulness #dhyana"
+            "#meditationmusic #432hz #528hz #whitestonemusic #deepsleep #stressrelief #zen #healingmusic #yoga #mindfulness"
         ),
-        "tags": [
-            "432hz meditation music", "deep healing music", "white stone music",
-            "stress relief music", "peaceful sleep music", "relaxing music", "zen meditation",
-            "healing frequency 432hz", "calm music for anxiety", "fall asleep in 10 minutes",
-            "binaural beats", "yoga meditation music", "positive energy vibration",
-            "insomnia cure music", "deep sleep relaxation", "dhyana meditation",
+        "tags": theme["tags"] + [
+            "meditation music", "relaxing music", "peaceful sleep",
             f"{dur_label.lower()} meditation", f"{dur_label.lower()} sleep music"
         ],
         "video_path": str(final_mp4),
         "duration_minutes": mins,
         "is_short": False,
+        "theme_id": theme["id"],
+        "theme_name": theme["name"],
         "created_at": time.strftime("%Y-%m-%d %H:%M:%S")
     }
 
@@ -254,7 +328,7 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
     size_mb = final_mp4.stat().st_size / (1024 * 1024)
 
     print("\n" + "=" * 75)
-    print(f"🎉 [White Stone Music] SUCCESS! Watermarked {dur_label} Video Generated in {elapsed:.1f}s!")
+    print(f"🎉 [White Stone Music] SUCCESS! [{theme['name']}] {dur_label} Video Generated in {elapsed:.1f}s!")
     print(f"📁 Video Location: {final_mp4}")
     print(f"📦 File Size: {size_mb:.2f} MB")
     print(f"📝 Metadata: {meta_path}")
@@ -264,6 +338,9 @@ def build_meditation_video(duration_seconds: int = 3600, output_name: str = "whi
 
 if __name__ == "__main__":
     dur = 3600  # Default 1 Hour (3600s)
+    theme_idx = None
     if len(sys.argv) > 1:
         dur = int(sys.argv[1])
-    build_meditation_video(duration_seconds=dur, output_name=f"whitestone_meditation_{dur//60}min")
+    if len(sys.argv) > 2:
+        theme_idx = int(sys.argv[2])
+    build_meditation_video(duration_seconds=dur, theme_index=theme_idx, output_name=f"whitestone_{dur//60}min")
