@@ -107,6 +107,17 @@ def upload_direct(video_path: Path, title: str, description: str, tags: list, ca
     print(f"\n🎉 [SUCCESS] Video is Live on YouTube!")
     print(f"👉 Link: {video_url}")
 
+    # Apply Custom Distinct Thumbnail if present
+    thumb_path = video_path.with_suffix(".thumb.jpg")
+    if thumb_path.exists():
+        try:
+            thumb_media = MediaFileUpload(str(thumb_path), mimetype="image/jpeg")
+            youtube.thumbnails().set(videoId=video_id, media_body=thumb_media).execute()
+            print(f"[YouTube Direct] 🖼️ Custom HD Thumbnail applied successfully!")
+            thumb_path.unlink(missing_ok=True)
+        except Exception as e:
+            print(f"[YouTube Direct] Thumbnail notice: {e}")
+
     # Explicit cleanup to release file lock on Windows
     del media
     del request

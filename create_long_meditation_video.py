@@ -307,6 +307,20 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
 
+    # Step 7: Generate Distinct Custom YouTube Thumbnail
+    try:
+        from thumbnail_maker import generate_custom_thumbnail
+        thumb_path = final_mp4.with_suffix(".thumb.jpg")
+        generate_custom_thumbnail(
+            scene_img_path=scene_paths[0],
+            theme_id=theme["id"],
+            dur_label=dur_label,
+            output_path=thumb_path
+        )
+        print(f"🖼️ [Thumbnail] Custom 1280x720 Thumbnail generated: {thumb_path.name}")
+    except Exception as e:
+        print(f"[Thumbnail] Notice: {e}")
+
     # Clean intermediate temporary files
     for p in scene_segment_paths:
         try:
