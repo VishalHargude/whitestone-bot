@@ -433,21 +433,11 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
         print(f"[Thumbnail] Notice: {e}")
 
     # Clean intermediate temporary files
-    for p in scene_segment_paths:
+    for tmp_file in [master_seq_path, merged_video_visual, audio_loop_path]:
         try:
-            p.unlink(missing_ok=True)
+            tmp_file.unlink(missing_ok=True)
         except Exception:
             pass
-    for idx in range(num_scenes):
-        try:
-            (TEMP_DIR / f"base_clip_{idx}.mp4").unlink(missing_ok=True)
-        except Exception:
-            pass
-    try:
-        merged_video_visual.unlink(missing_ok=True)
-        audio_loop_path.unlink(missing_ok=True)
-    except Exception:
-        pass
 
     elapsed = time.time() - t_start
     size_mb = final_mp4.stat().st_size / (1024 * 1024)
