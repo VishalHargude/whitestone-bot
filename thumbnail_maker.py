@@ -14,6 +14,14 @@ BASE_DIR = Path(__file__).resolve().parent
 LOGO_PATH = BASE_DIR / "assets" / "white_stone_logo.png"
 
 THEME_THUMB_STYLES = {
+    "celtic_sound_therapy": {
+        "freq": "528 Hz",
+        "badge_color": (36, 175, 110),
+        "headline": "REMOVE",
+        "subline": "ALL STRESS",
+        "pill_text": "Celtic Sound Therapy 🌿",
+        "pill_color": (200, 255, 220)
+    },
     "himalayan_sunrise": {
         "freq": "432 Hz",
         "badge_color": (212, 175, 55),
