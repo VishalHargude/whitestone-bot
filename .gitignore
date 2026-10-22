@@ -9,6 +9,7 @@ drive_token.pickle
 temp/
 output/
 *.mp4
+!assets/*.mp4
 *.mkv
 *.avi
 __pycache__/
