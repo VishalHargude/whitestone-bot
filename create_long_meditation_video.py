@@ -41,6 +41,24 @@ LOGO_PATH = ASSETS_DIR / "white_stone_logo.png"
 # 10 Pure, High-Definition Thematic Worlds (3 Photorealistic 8K Scenes Per Theme)
 THEMES = [
     {
+        "id": "celtic_sound_therapy",
+        "name": "Ancient Celtic Sound Therapy & Overthinking Relief",
+        "scene_files": ["scene_celtic_waterfall.jpg", "scene8_forest_river.jpg", "scene2_waterfall.jpg"],
+        "music_track": "track_celtic_528hz.mp3",
+        "title_template": "Clear Blockages & Overthinking | Ancient Celtic Sound Therapy | 528Hz Miracle Wave ({dur_label}) 🌿✨",
+        "chapters": [
+            "Misty Ancient Redwood Waterfall (Clearing Blockages & Stress)",
+            "Crystal Forest Stream (Quieting Overthinking & Mental Noise)",
+            "Deep Celtic Healing Sanctuary (Profound Peace & Renewal)"
+        ],
+        "tags": [
+            "celtic sound therapy", "528hz miracle wave", "clear blockages overthinking",
+            "ancient celtic meditation", "remove all stress", "overthinking relief",
+            "432hz healing music", "deep relaxation", "peaceful sleep music",
+            "white stone music", "vishal hargude", "sound therapy", "stress relief"
+        ]
+    },
+    {
         "id": "himalayan_sunrise",
         "name": "Himalayan Sunrise Dhyana",
         "scene_files": ["scene1_yogi.jpg", "scene4_banyan_monk.jpg", "scene15_himalayan_stupa.jpg"],
