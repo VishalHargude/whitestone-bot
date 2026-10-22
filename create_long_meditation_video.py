@@ -328,8 +328,10 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
         ffmpeg_exe, "-y",
         "-i", str(merged_video_visual),
         "-i", str(audio_loop_path),
+        "-map", "0:v:0",
+        "-map", "1:a:0",
         "-c:v", "copy",
-        "-c:a", "aac", "-b:a", "192k",
+        "-c:a", "aac", "-b:a", "192k", "-ac", "2", "-ar", "44100",
         "-shortest",
         str(final_mp4)
     ]
