@@ -57,6 +57,23 @@ def authenticate_youtube():
 
     return build("youtube", "v3", credentials=creds)
 
+def get_target_publish_at(slots=[(6, 0), (11, 30), (16, 45), (21, 45)]):
+    """
+    Finds if an upcoming scheduled upload slot is within the next 2 hours.
+    Returns (publish_at_iso, slot_name_ist) or (None, None).
+    Enables pre-rendering so video is uploaded in advance and goes PUBLIC exactly on time.
+    """
+    from datetime import datetime, timezone, timedelta
+    IST = timezone(timedelta(hours=5, minutes=30))
+    now_ist = datetime.now(IST)
+    for h, m in slots:
+        candidate = now_ist.replace(hour=h, minute=m, second=0, microsecond=0)
+        diff = (candidate - now_ist).total_seconds()
+        if 120 < diff <= 7200:  # Between 2 minutes and 2 hours in the future
+            utc_dt = candidate.astimezone(timezone.utc)
+            return utc_dt.strftime("%Y-%m-%dT%H:%M:%S.000Z"), candidate.strftime("%I:%M %p IST")
+    return None, None
+
 def upload_direct(video_path: Path, title: str, description: str, tags: list, category_id: str = "10", is_short: bool = False):
     """Directly uploads a video to YouTube and cleans local file."""
     youtube = authenticate_youtube()
@@ -65,6 +82,24 @@ def upload_direct(video_path: Path, title: str, description: str, tags: list, ca
 
     print(f"\n[YouTube Direct] 🚀 Uploading: {title}...")
 
+    # Check if this video should be scheduled for an upcoming daily slot
+    publish_at_iso, slot_label = get_target_publish_at()
+    if publish_at_iso:
+        status_dict = {
+            "privacyStatus": "private",
+            "publishAt": publish_at_iso,
+            "selfDeclaredMadeForKids": False,
+            "containsSyntheticMedia": False
+        }
+        print(f"[YouTube Direct] ⏰ Advance Pre-Schedule Active: Video will automatically go PUBLIC at {slot_label} ({publish_at_iso})!")
+    else:
+        status_dict = {
+            "privacyStatus": "public",
+            "selfDeclaredMadeForKids": False,
+            "containsSyntheticMedia": False
+        }
+        print(f"[YouTube Direct] 🚀 Immediate Public Release Active!")
+
     body = {
         "snippet": {
             "title": title[:100],
@@ -72,11 +107,7 @@ def upload_direct(video_path: Path, title: str, description: str, tags: list, ca
             "tags": tags,
             "categoryId": category_id
         },
-        "status": {
-            "privacyStatus": "public",
-            "selfDeclaredMadeForKids": False,
-            "containsSyntheticMedia": False
-        }
+        "status": status_dict
     }
 
     media = MediaFileUpload(
