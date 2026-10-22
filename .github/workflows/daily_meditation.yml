@@ -2,14 +2,15 @@ name: Automated Cloud Meditation Video Publisher
 
 on:
   schedule:
-    # 1. 06:15 AM IST (00:45 UTC) - 1-Hour Morning Dhyana (Asia Morning & US Night)
-    - cron: '45 0 * * *'
-    # 2. 11:45 AM IST (06:15 UTC) - 1-Hour Midday Stress Relief (EU Morning)
-    - cron: '15 6 * * *'
-    # 3. 04:45 PM IST (11:15 UTC) - 1-Hour Sunset Zen & Mindful Focus (EU Afternoon & US Morning)
-    - cron: '15 11 * * *'
-    # 4. 09:45 PM IST (16:15 UTC) - 2-Hour Deep Sleep Meditation (Asia Bedtime & US Midday)
-    - cron: '15 16 * * *'
+    # 4 Daily Slots in IST - Pre-rendered 45 mins in advance for exact-minute scheduled release:
+    # 1. 06:00 AM IST Slot -> Pre-rendered at 05:15 AM IST (23:45 UTC prev day)
+    - cron: '45 23 * * *'
+    # 2. 11:30 AM IST Slot -> Pre-rendered at 10:45 AM IST (05:15 UTC)
+    - cron: '15 5 * * *'
+    # 3. 04:45 PM IST Slot -> Pre-rendered at 04:00 PM IST (10:30 UTC)
+    - cron: '30 10 * * *'
+    # 4. 09:45 PM IST Slot -> Pre-rendered at 09:00 PM IST (15:30 UTC)
+    - cron: '30 15 * * *'
   workflow_dispatch:
     inputs:
       duration_minutes:
@@ -70,7 +71,7 @@ jobs:
           DUR="${{ inputs.duration_minutes }}"
           if [ -z "$DUR" ]; then
             CURRENT_HOUR=$(date -u +%H)
-            if [ "$CURRENT_HOUR" = "16" ]; then
+            if [ "$CURRENT_HOUR" = "15" ] || [ "$CURRENT_HOUR" = "16" ]; then
               DUR="120"
             else
               DUR="60"
