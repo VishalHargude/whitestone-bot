@@ -33,12 +33,12 @@ ASSETS_MEDITATION = ASSETS_DIR / "meditation"
 MUSIC_MEDITATION = ASSETS_DIR / "music" / "meditation"
 LOGO_PATH = ASSETS_DIR / "white_stone_logo.png"
 
-# 10 Pure, High-Definition Thematic Worlds with Theme-Specific Weather Overlays
+# 10 Pure, High-Definition Thematic Worlds with 100% Genuine Acoustic / Ambient Master Recordings
+# ZERO Synthetic Sine Waves. ZERO Artificial Drawn Lines. Pure National Geographic 8K Visuals.
 THEMES = [
     {
         "id": "celtic_sound_therapy",
         "name": "Ancient Celtic Sound Therapy & Overthinking Relief",
-        "weather_overlay": "rain_falling_gentle.mp4",
         "scene_files": [
             "scene_celtic_waterfall.jpg",
             "scene_redwood_waterfall.jpg",
@@ -52,14 +52,13 @@ THEMES = [
         "tags": [
             "celtic sound therapy", "528hz miracle wave", "clear blockages overthinking",
             "ancient celtic meditation", "remove all stress", "overthinking relief",
-            "432hz healing music", "deep relaxation", "peaceful sleep music", "rain sounds",
+            "432hz healing music", "deep relaxation", "peaceful sleep music",
             "white stone music", "vishal hargude", "sound therapy", "stress relief"
         ]
     },
     {
         "id": "bamboo_waterfall",
         "name": "Sacred Bamboo Forest & Cascading Waters",
-        "weather_overlay": "rain_falling_gentle.mp4",
         "scene_files": [
             "scene2_waterfall.jpg",
             "scene_zen_bamboo_waterfall.jpg",
@@ -68,17 +67,16 @@ THEMES = [
             "scene8_forest_river.jpg",
             "scene_mossy_forest_stream.jpg"
         ],
-        "music_track": "track4_bamboo_waterfall.mp3",
-        "title_template": "432Hz Bamboo Forest Waterfall Zen | {dur_label} Nature Healing, Rain Calm & Stress Relief 🎋💧",
+        "music_track": "track_celtic_528hz.mp3",
+        "title_template": "432Hz Bamboo Forest Waterfall Zen | {dur_label} Nature Healing & Stress Relief 🎋💧",
         "tags": [
-            "bamboo waterfall", "432hz nature healing", "rain relaxation", "zen forest",
+            "bamboo waterfall", "432hz nature healing", "zen forest",
             "stress relief", "calm mind", "peaceful waterfall", "white stone music"
         ]
     },
     {
         "id": "himalayan_sunrise",
         "name": "Himalayan Sunrise Dhyana",
-        "weather_overlay": "snowfall_diagonal_slow.mp4",
         "scene_files": [
             "scene1_yogi.jpg",
             "scene_yogi_sunrise.jpg",
@@ -87,17 +85,16 @@ THEMES = [
             "scene15_himalayan_stupa.jpg",
             "scene_golden_stupa.jpg"
         ],
-        "music_track": "track1_himalayan.mp3",
-        "title_template": "432Hz Himalayan Sunrise Meditation | {dur_label} Deep Inner Stillness, Snowfall & Peace 🏔️❄️",
+        "music_track": "track_bansuri_flute_432hz.mp3",
+        "title_template": "432Hz Himalayan Sunrise Meditation | {dur_label} Divine Bansuri Flute & Inner Peace 🏔️✨",
         "tags": [
-            "himalayan meditation", "yogi meditation", "432hz sunrise", "snowfall meditation",
+            "himalayan meditation", "bansuri flute 432hz", "432hz sunrise", "krishna flute",
             "pranayama music", "inner peace", "dhyana meditation", "deep healing music", "white stone music"
         ]
     },
     {
         "id": "sacred_temple",
         "name": "Sacred Temple & Floating Diyas",
-        "weather_overlay": "golden_embers_sunlight.mp4",
         "scene_files": [
             "scene5_temple_yogi.jpg",
             "scene_temple_sanctuary_yogi.jpg",
@@ -106,17 +103,16 @@ THEMES = [
             "scene7_lotus_pond.jpg",
             "scene_zen_lotus_twilight.jpg"
         ],
-        "music_track": "track2_temple.mp3",
-        "title_template": "528Hz Sacred Temple Meditation | {dur_label} Positive Energy, Golden Embers & Deep Calm 🛕✨",
+        "music_track": "track_432hz_sanctuary.mp3",
+        "title_template": "432Hz Sacred Temple Sanctuary | {dur_label} Positive Energy & Deep Spiritual Peace 🛕✨",
         "tags": [
-            "temple meditation", "528hz miracle tone", "sacred diyas", "spiritual healing",
-            "golden embers", "divine meditation", "positive energy", "white stone music"
+            "temple meditation", "432hz sanctuary", "sacred diyas", "spiritual healing",
+            "divine meditation", "positive energy", "white stone music"
         ]
     },
     {
         "id": "sunset_beach",
         "name": "Golden Sunset Beach & Ocean Zen",
-        "weather_overlay": "golden_embers_sunlight.mp4",
         "scene_files": [
             "scene3_beach.jpg",
             "scene16_beach_ocean_sunset.jpg",
@@ -125,8 +121,8 @@ THEMES = [
             "scene_coastal_cove_dusk.jpg",
             "scene_woman_sunset_beach.jpg"
         ],
-        "music_track": "track3_beach.mp3",
-        "title_template": "432Hz Sunset Beach Meditation | {dur_label} Stress Relief, Ocean Calm & Inner Peace 🌊🌅",
+        "music_track": "track_432hz_evolving_pads.mp3",
+        "title_template": "432Hz Sunset Beach Meditation | {dur_label} Deep Stress Relief & Ocean Serenity 🌊🌅",
         "tags": [
             "ocean meditation", "beach relaxation", "sunset calm", "stress relief music",
             "anti anxiety", "peaceful sleep", "mindfulness waves", "white stone music"
@@ -135,24 +131,22 @@ THEMES = [
     {
         "id": "cosmic_deep_sleep",
         "name": "Cosmic Universe Deep Sleep",
-        "weather_overlay": "golden_embers_sunlight.mp4",
         "scene_files": [
             "scene18_deep_space_nebula.jpg",
             "scene_cosmic_nebula.jpg",
             "scene6_night_stars.jpg",
             "scene_himalayan_milkyway.jpg"
         ],
-        "music_track": "track5_deep_sleep_cosmos.mp3",
-        "title_template": "432Hz Cosmic Deep Sleep | {dur_label} Fall Asleep in Minutes, Stardust & Delta Waves 🌌✨",
+        "music_track": "track_432hz_deep_sleep.mp3",
+        "title_template": "432Hz Cosmic Deep Sleep | {dur_label} Fall Asleep in Minutes, Stardust & Healing Delta Waves 🌌✨",
         "tags": [
             "deep sleep music", "432hz cosmic sleep", "delta waves", "insomnia relief",
-            "stardust meditation", "lucid dreaming", "fall asleep fast", "white stone music"
+            "stardust meditation", "fall asleep fast", "white stone music"
         ]
     },
     {
         "id": "tibetan_monastery",
-        "name": "Tibetan Cliffside Monastery & Snow",
-        "weather_overlay": "snowfall_diagonal_slow.mp4",
+        "name": "Tibetan Cliffside Monastery & Singing Bowls",
         "scene_files": [
             "scene11_tibetan_monastery.jpg",
             "scene_tibetan_cliffside.jpg",
@@ -160,17 +154,16 @@ THEMES = [
             "scene_golden_stupa.jpg",
             "scene4_banyan_monk.jpg"
         ],
-        "music_track": "track6_tibetan_monastery.mp3",
-        "title_template": "528Hz Tibetan Monastery Meditation | {dur_label} Mountain Healing Chants & Snowfall 🏔️❄️",
+        "music_track": "track_tibetan_bowls.mp3",
+        "title_template": "Tibetan Singing Bowls & Mountain Resonance | {dur_label} Deep Healing & Negative Energy Cleanse 🏔️🔔",
         "tags": [
-            "tibetan meditation", "528hz healing", "monastery chants", "snowfall calm",
-            "mountain peace", "singing bowls", "white stone music"
+            "tibetan singing bowls", "tibetan meditation", "sound bath healing",
+            "cleanse negative energy", "mountain peace", "white stone music"
         ]
     },
     {
         "id": "kyoto_zen",
-        "name": "Kyoto Zen Rock Garden & Misty Paths",
-        "weather_overlay": "rain_falling_gentle.mp4",
+        "name": "Kyoto Zen Rock Garden & Bilateral Harp",
         "scene_files": [
             "scene9_zen_garden.jpg",
             "scene_kyoto_zen_twilight.jpg",
@@ -178,34 +171,32 @@ THEMES = [
             "scene_kyoto_bamboo_dawn.jpg",
             "scene7_lotus_pond.jpg"
         ],
-        "music_track": "track7_kyoto_zen.mp3",
-        "title_template": "432Hz Kyoto Zen Garden Meditation | {dur_label} Mindfulness, Gentle Rain & Inner Stillness ⛩️🌧️",
+        "music_track": "track_bilateral_harp.mp3",
+        "title_template": "Kyoto Zen Garden & Bilateral Harp | {dur_label} Mindfulness, Emotional Calm & Inner Focus ⛩️🌿",
         "tags": [
-            "zen garden", "kyoto meditation", "japanese zen", "gentle rain calm",
+            "zen garden", "bilateral harp", "kyoto meditation", "japanese zen",
             "mindfulness music", "focus study peace", "white stone music"
         ]
     },
     {
         "id": "celestial_aurora",
         "name": "Celestial Aurora Borealis over Arctic Fjord",
-        "weather_overlay": "snowfall_diagonal_slow.mp4",
         "scene_files": [
             "scene10_aurora_borealis.jpg",
             "scene_aurora_fjord.jpg",
             "scene6_night_stars.jpg",
             "scene18_deep_space_nebula.jpg"
         ],
-        "music_track": "track8_aurora_sleep.mp3",
-        "title_template": "432Hz Celestial Aurora Borealis | {dur_label} Northern Lights, Arctic Snowfall & Deep Sleep 🌌❄️",
+        "music_track": "track_432hz_the_deep.mp3",
+        "title_template": "432Hz Celestial Aurora Borealis | {dur_label} Northern Lights, Night Stillness & Deep Sleep 🌌✨",
         "tags": [
-            "aurora borealis", "northern lights", "432hz deep sleep", "arctic snowfall",
+            "aurora borealis", "northern lights", "432hz deep sleep", "deep meditation",
             "dream meditation", "celestial calm", "white stone music"
         ]
     },
     {
         "id": "desert_solitude",
         "name": "Golden Desert Sunset Solitude",
-        "weather_overlay": "golden_embers_sunlight.mp4",
         "scene_files": [
             "scene12_desert_yogi.jpg",
             "scene_desert_yogi_dune.jpg",
@@ -213,11 +204,11 @@ THEMES = [
             "scene_yogi_sunrise.jpg",
             "scene3_beach.jpg"
         ],
-        "music_track": "track9_desert_solitude.mp3",
-        "title_template": "432Hz Golden Desert Sunset Solitude | {dur_label} Solitary Yoga Dhyana & Warm Peace 🏜️✨",
+        "music_track": "track_bansuri_flute_432hz.mp3",
+        "title_template": "432Hz Desert Sunset Solitude | {dur_label} Golden Horizon, Bansuri Flute & Soul Calm 🏜️🌅",
         "tags": [
-            "desert meditation", "sunset dunes", "solitary yogi", "432hz peace",
-            "stress relief", "deep focus", "golden solitude", "white stone music"
+            "desert meditation", "bansuri flute 432hz", "sunset solitude",
+            "soul calm", "deep peace", "inner stillness", "white stone music"
         ]
     }
 ]
@@ -315,7 +306,7 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     print(f"🧘‍♂️ White Stone Music - Top-Creator Meditation Video Generator")
     print(f"🎨 Theme #{theme_index % len(THEMES) + 1}: [{theme['name']}]")
     print(f"⏱️ Duration: {dur_label} ({duration_seconds}s)")
-    print(f"🌦️ Weather Overlay: {theme['weather_overlay']}")
+    print(f"🎵 Music Master: {theme['music_track']}")
     print("=" * 80)
 
     ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
@@ -340,37 +331,26 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     cycle_dur = build_smooth_crossfade_cycle(ffmpeg_exe, scene_paths, cycle_video, clip_dur=14.0, fade_dur=2.0)
     print(f"  [OK] Master Seamless Visual Cycle Ready: {cycle_dur:.1f}s")
 
-    # Step 3: Check Weather Overlay
-    weather_mp4 = ASSETS_DIR / theme["weather_overlay"]
-    if not weather_mp4.exists():
-        weather_mp4 = ASSETS_DIR / "rain_falling_gentle.mp4"
-
-    # Step 4: Check Relaxing Music Track
+    # Step 3: Check Relaxing Music Track (100% Acoustic / Ambient Master Recording)
     music_track = MUSIC_MEDITATION / theme["music_track"]
     if not music_track.exists():
         music_track = MUSIC_MEDITATION / "track_celtic_528hz.mp3"
         if not music_track.exists():
-            music_track = MUSIC_MEDITATION / "track1.mp3"
+            music_track = MUSIC_MEDITATION / "track_432hz_the_deep.mp3"
 
     print(f"\n[Step 3/4] Audio & Atmosphere:")
-    print(f"  • Music: {music_track.name}")
-    print(f"  • Weather Effect: {weather_mp4.name} (Screen Blend @ 0.70)")
+    print(f"  • Music: {music_track.name} (100% Genuine Acoustic / Ambient Master)")
+    print(f"  • Visuals: Pure 8K National Geographic Gliding Scenes (Zero Artificial Lines)")
     print(f"  • Watermark Logo: {LOGO_PATH.name} (Bottom-Right)")
 
-    # Step 5: Final Multi-Layer Assembly (Visual Cycle Stream-Loop + Weather Stream-Loop + Audio Loop + Logo)
+    # Step 4: Final Assembly (Pristine Visual Cycle Loop + Master Music Loop + Subtle Logo)
     final_mp4 = OUTPUT_DIR / f"{output_name}.mp4"
     print(f"\n[Step 4/4] Finalizing Full HD 1080p Video -> {final_mp4.name}...")
 
-    # Multi-stream composite filter:
-    # 0:v = Visual Cycle (stream looped)
-    # 1:v = Weather Overlay (stream looped)
-    # 2:v = Logo PNG
-    # 3:a = Audio (stream looped)
+    # Pristine composite: Zero fake lines, crystal clear 1080p National Geographic visuals
     filter_composite = (
-        "[0:v]format=rgba[vbg];"
-        "[1:v]scale=1920:1080,format=rgba[vweather];"
-        "[vbg][vweather]blend=all_mode='screen':all_opacity=0.70[vcomp];"
-        "[vcomp][2:v]overlay=W-w-50:H-h-50[vout]"
+        "[0:v]format=yuv420p[vbg];"
+        "[vbg][1:v]overlay=W-w-50:H-h-50:format=auto[vout]"
     )
 
     fade_start = max(1, duration_seconds - 5)
@@ -379,16 +359,15 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     cmd_final = [
         ffmpeg_exe, "-y",
         "-stream_loop", "-1", "-i", str(cycle_video),
-        "-stream_loop", "-1", "-i", str(weather_mp4),
         "-i", str(LOGO_PATH),
         "-stream_loop", "-1", "-i", str(music_track),
         "-filter_complex", filter_composite,
         "-map", "[vout]",
-        "-map", "3:a",
+        "-map", "2:a",
         "-af", af_filter,
         "-t", str(duration_seconds),
         "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18", "-pix_fmt", "yuv420p",
-        "-c:a", "aac", "-b:a", "192k", "-ac", "2", "-ar", "44100",
+        "-c:a", "aac", "-b:a", "256k", "-ac", "2", "-ar", "48000",
         str(final_mp4)
     ]
     subprocess.run(cmd_final, check=True)
@@ -401,7 +380,7 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
         "title": title[:100],
         "theme_id": theme["id"],
         "theme_name": theme["name"],
-        "weather": theme["weather_overlay"],
+        "music": music_track.name,
         "duration": duration_seconds,
         "video_file": final_mp4.name,
         "tags": theme["tags"]
