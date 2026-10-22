@@ -57,7 +57,7 @@ def authenticate_youtube():
 
     return build("youtube", "v3", credentials=creds)
 
-def get_target_publish_at(slots=[(6, 0), (11, 30), (16, 45), (21, 45)]):
+def get_target_publish_at(slots=[(6, 0), (14, 30), (21, 45)]):
     """
     Finds if an upcoming scheduled upload slot is within the next 2 hours.
     Returns (publish_at_iso, slot_name_ist) or (None, None).
