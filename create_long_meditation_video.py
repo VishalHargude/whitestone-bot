@@ -388,6 +388,16 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     with open(meta_json, "w", encoding="utf-8") as f:
         json.dump(meta_data, f, ensure_ascii=False, indent=2)
 
+    # Generate matching high-CTR companion thumbnail
+    try:
+        from thumbnail_maker import create_meditation_thumbnail
+        thumb_file = final_mp4.with_suffix('.thumb.jpg')
+        thumb_dur = f"{mins} Mins" if mins < 60 else (f"{mins//60} Hour" if mins == 60 else f"{mins/60.0:.0f} Hours")
+        create_meditation_thumbnail(theme["id"], scene_paths[0], thumb_file, dur_label=thumb_dur)
+        print(f"[Thumbnail] 🖼️ High-CTR Companion Thumbnail Generated: {thumb_file.name}")
+    except Exception as e:
+        print(f"[Thumbnail] Notice: {e}")
+
     print("\n" + "=" * 80)
     print(f"🎉 [Top-Creator Video Render Complete] {final_mp4.name} ({final_mp4.stat().st_size / (1024*1024):.2f} MB)")
     print(f"📌 Title: {title}")
