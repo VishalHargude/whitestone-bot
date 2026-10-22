@@ -2,14 +2,12 @@ name: Automated Cloud Meditation Video Publisher
 
 on:
   schedule:
-    # 4 Daily Slots in IST - Pre-rendered 45 mins in advance for exact-minute scheduled release:
-    # 1. 06:00 AM IST Slot -> Pre-rendered at 05:15 AM IST (23:45 UTC prev day)
+    # 3 Daily High-Traffic Slots in IST - Pre-rendered 45 mins in advance for exact-minute scheduled release:
+    # 1. 06:00 AM IST Slot (Morning Focus) -> Pre-rendered at 05:15 AM IST (23:45 UTC prev day)
     - cron: '45 23 * * *'
-    # 2. 11:30 AM IST Slot -> Pre-rendered at 10:45 AM IST (05:15 UTC)
-    - cron: '15 5 * * *'
-    # 3. 04:45 PM IST Slot -> Pre-rendered at 04:00 PM IST (10:30 UTC)
-    - cron: '30 10 * * *'
-    # 4. 09:45 PM IST Slot -> Pre-rendered at 09:00 PM IST (15:30 UTC)
+    # 2. 02:30 PM IST Slot (Afternoon Stress Relief) -> Pre-rendered at 01:45 PM IST (08:15 UTC)
+    - cron: '15 8 * * *'
+    # 3. 09:45 PM IST Slot (Night Deep Sleep 2-Hour) -> Pre-rendered at 09:00 PM IST (15:30 UTC)
     - cron: '30 15 * * *'
   workflow_dispatch:
     inputs:
