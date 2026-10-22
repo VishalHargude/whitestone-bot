@@ -21,15 +21,13 @@ from direct_youtube_upload import upload_latest_video
 
 THEME_TRACKER_FILE = BASE_DIR / "meditation_theme_tracker.json"
 
-# Optimal 4 global upload times for meditation / sleep music (IST):
-# - 06:00 AM IST = 1-Hour Morning Dhyana (Triggered 05:15 IST)
-# - 11:30 AM IST = 1-Hour Midday Stress Relief (Triggered 10:45 IST)
-# - 04:45 PM IST = 1-Hour Sunset Peace & Mindfulness (Triggered 16:00 IST)
+# Optimal 3 global peak upload times for meditation & sleep music (IST):
+# - 06:00 AM IST = 1-Hour Morning Focus & Awakening (Triggered 05:15 IST)
+# - 02:30 PM IST = 1-Hour Midday Stress Relief & Zen Flow (Triggered 13:45 IST)
 # - 09:45 PM IST = 2-Hour Deep Sleep Meditation (Triggered 21:00 IST)
 MEDITATION_SCHEDULES = [
-    {"time": "05:15", "target_public": "06:00 AM IST", "duration_mins": 60, "name": "1-Hour Morning Dhyana"},
-    {"time": "10:45", "target_public": "11:30 AM IST", "duration_mins": 60, "name": "1-Hour Midday Zen & Stress Relief"},
-    {"time": "16:00", "target_public": "04:45 PM IST", "duration_mins": 60, "name": "1-Hour Sunset Peace & Clarity"},
+    {"time": "05:15", "target_public": "06:00 AM IST", "duration_mins": 60, "name": "1-Hour Morning Awakening"},
+    {"time": "13:45", "target_public": "02:30 PM IST", "duration_mins": 60, "name": "1-Hour Midday Zen & Stress Relief"},
     {"time": "21:00", "target_public": "09:45 PM IST", "duration_mins": 120, "name": "2-Hour Deep Sleep Meditation"}
 ]
 
@@ -117,8 +115,7 @@ if __name__ == "__main__":
         print("=" * 75)
 
         schedule.every().day.at("05:15").do(job_publish_meditation_video, duration_mins=60)
-        schedule.every().day.at("10:45").do(job_publish_meditation_video, duration_mins=60)
-        schedule.every().day.at("16:00").do(job_publish_meditation_video, duration_mins=60)
+        schedule.every().day.at("13:45").do(job_publish_meditation_video, duration_mins=60)
         schedule.every().day.at("21:00").do(job_publish_meditation_video, duration_mins=120)
 
         while True:
