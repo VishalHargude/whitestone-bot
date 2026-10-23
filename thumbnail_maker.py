@@ -188,12 +188,21 @@ def generate_custom_thumbnail(scene_img_path: Path, theme_id: str, dur_label: st
     return output_path
 
 
+# Aliases for 100% theme ID compatibility
+THEME_THUMB_STYLES["kyoto_zen"] = THEME_THUMB_STYLES["kyoto_zen_garden"]
+THEME_THUMB_STYLES["cosmic_deep_sleep"] = THEME_THUMB_STYLES["deep_sleep_cosmos"]
+
 def create_meditation_thumbnail(theme_id_or_path, scene_path_or_id, output_path: Path, dur_label: str = "1 HOUR") -> Path:
-    """Flexible wrapper supporting both (theme_id, scene_path) and (scene_path, theme_id)."""
-    if isinstance(theme_id_or_path, str) and theme_id_or_path in THEME_THUMB_STYLES:
-        theme_id = theme_id_or_path
+    """Robust wrapper matching both (theme_id, scene_path) and (scene_path, theme_id)."""
+    tid_cand = str(theme_id_or_path).lower().strip()
+    if tid_cand in THEME_THUMB_STYLES:
+        theme_id = tid_cand
         scene_img_path = Path(scene_path_or_id)
-    else:
+    elif str(scene_path_or_id).lower().strip() in THEME_THUMB_STYLES:
+        theme_id = str(scene_path_or_id).lower().strip()
         scene_img_path = Path(theme_id_or_path)
-        theme_id = str(scene_path_or_id)
+    else:
+        theme_id = "himalayan_sunrise"
+        scene_img_path = Path(scene_path_or_id) if Path(scene_path_or_id).exists() else Path(theme_id_or_path)
+
     return generate_custom_thumbnail(scene_img_path, theme_id, dur_label, Path(output_path))
