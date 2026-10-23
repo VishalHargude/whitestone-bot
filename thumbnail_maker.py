@@ -186,3 +186,14 @@ def generate_custom_thumbnail(scene_img_path: Path, theme_id: str, dur_label: st
 
     img.save(output_path, "JPEG", quality=95)
     return output_path
+
+
+def create_meditation_thumbnail(theme_id_or_path, scene_path_or_id, output_path: Path, dur_label: str = "1 HOUR") -> Path:
+    """Flexible wrapper supporting both (theme_id, scene_path) and (scene_path, theme_id)."""
+    if isinstance(theme_id_or_path, str) and theme_id_or_path in THEME_THUMB_STYLES:
+        theme_id = theme_id_or_path
+        scene_img_path = Path(scene_path_or_id)
+    else:
+        scene_img_path = Path(theme_id_or_path)
+        theme_id = str(scene_path_or_id)
+    return generate_custom_thumbnail(scene_img_path, theme_id, dur_label, Path(output_path))
