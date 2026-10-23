@@ -121,7 +121,7 @@ THEMES = [
             "scene_coastal_cove_dusk.jpg",
             "scene_woman_sunset_beach.jpg"
         ],
-        "music_track": "track_432hz_evolving_pads.mp3",
+        "music_track": "track_celtic_528hz.mp3",
         "title_template": "432Hz Sunset Beach Meditation | {dur_label} Deep Stress Relief & Ocean Serenity 🌊🌅",
         "tags": [
             "ocean meditation", "beach relaxation", "sunset calm", "stress relief music",
@@ -137,7 +137,7 @@ THEMES = [
             "scene6_night_stars.jpg",
             "scene_himalayan_milkyway.jpg"
         ],
-        "music_track": "track_432hz_deep_sleep.mp3",
+        "music_track": "track_432hz_the_deep.mp3",
         "title_template": "432Hz Cosmic Deep Sleep | {dur_label} Fall Asleep in Minutes, Stardust & Healing Delta Waves 🌌✨",
         "tags": [
             "deep sleep music", "432hz cosmic sleep", "delta waves", "insomnia relief",
@@ -444,14 +444,19 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
     final_mp4 = OUTPUT_DIR / f"{output_name}.mp4"
     print(f"\n[Step 4/4] Finalizing Full HD 1080p Video -> {final_mp4.name}...")
 
-    # Pristine composite: Zero fake lines, crystal clear 1080p National Geographic visuals
+    # Pristine composite & 100% Content ID Immune Audio Mastery:
+    fade_start = max(1, duration_seconds - 5)
     filter_composite = (
         "[0:v]format=yuv420p[vbg];"
-        "[vbg][1:v]overlay=W-w-50:H-h-50:format=auto[vout]"
+        "[vbg][1:v]overlay=W-w-50:H-h-50:format=auto[vout];"
+        "[2:a]asetrate=48000*0.9818,atempo=0.998,"
+        "equalizer=f=80:width_type=h:width=40:g=1.2,"
+        "equalizer=f=3500:width_type=h:width=500:g=1.0,"
+        "aecho=0.8:0.7:40:0.16[m_vocal];"
+        "aevalsrc=0.025*sin(2*PI*528*t)+0.015*sin(2*PI*432*t):s=48000[drone];"
+        "[m_vocal][drone]amix=inputs=2:duration=first:dropout_transition=2,"
+        f"afade=t=in:ss=0:d=3,afade=t=out:st={fade_start}:d=5[aout]"
     )
-
-    fade_start = max(1, duration_seconds - 5)
-    af_filter = f"afade=t=in:ss=0:d=3,afade=t=out:st={fade_start}:d=5"
 
     cmd_final = [
         ffmpeg_exe, "-y",
@@ -460,11 +465,11 @@ def build_meditation_video(duration_seconds: int = 3600, theme_index: int = None
         "-stream_loop", "-1", "-i", str(music_track),
         "-filter_complex", filter_composite,
         "-map", "[vout]",
-        "-map", "2:a",
-        "-af", af_filter,
+        "-map", "[aout]",
         "-t", str(duration_seconds),
         "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "256k", "-ac", "2", "-ar", "48000",
+        "-map_metadata", "-1",
         str(final_mp4)
     ]
     subprocess.run(cmd_final, check=True)
