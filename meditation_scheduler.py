@@ -32,26 +32,25 @@ MEDITATION_SCHEDULES = [
 ]
 
 def get_next_theme_index() -> int:
-    """Gets the next theme index and rotates sequentially so themes never repeat."""
-    curr_idx = 0
-    if THEME_TRACKER_FILE.exists():
-        try:
-            with open(THEME_TRACKER_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                curr_idx = data.get("last_theme_index", -1) + 1
-        except Exception:
-            curr_idx = 0
+    """
+    Gets the next theme index rotating sequentially through all 10 nature meditation themes.
+    Guarantees 3 completely different themes every day, cycling smoothly with zero duplicates.
+    """
+    from datetime import datetime, timezone, timedelta
+    IST = timezone(timedelta(hours=5, minutes=30))
+    now = datetime.now(IST)
+    target = now + timedelta(minutes=45)
+    h = target.hour
+
+    if h < 12:
+        slot_in_day = 0
+    elif 12 <= h < 17:
+        slot_in_day = 1
     else:
-        curr_idx = int(time.time() // (4 * 3600))
+        slot_in_day = 2
 
-    next_idx = curr_idx % len(THEMES)
-    try:
-        with open(THEME_TRACKER_FILE, "w", encoding="utf-8") as f:
-            json.dump({"last_theme_index": next_idx, "last_updated": time.strftime("%Y-%m-%d %H:%M:%S")}, f)
-    except Exception:
-        pass
-
-    return next_idx
+    day_of_year = target.timetuple().tm_yday
+    return (day_of_year * 3 + slot_in_day) % len(THEMES)
 
 def job_publish_meditation_video(duration_mins: int = 60, theme_idx: int = None):
     hours = duration_mins / 60.0
